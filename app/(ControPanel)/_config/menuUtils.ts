@@ -1,0 +1,159 @@
+import {
+  Settings,
+  LayoutDashboard,
+  Users,
+  Newspaper,
+  ClipboardPenLine,
+  UsersRound,
+  FileUser,
+  Briefcase,
+  Settings2,
+  Route,
+  CircleDollarSign,
+  Wallet2,
+  Images,
+  ChartColumnBig,
+  BadgeAlert,
+} from 'lucide-react';
+import type { LucideIcon } from 'lucide-react';
+
+/**
+ * Interface untuk menu item — supaya TypeScript tahu strukturnya.
+ */
+export interface MenuItem {
+  title: string;
+  url: string;
+  icon: LucideIcon;
+  roles?: string[]; // jika tidak ada, berarti menu publik
+  sub?: { title: string; url: string; icon: LucideIcon }[];
+}
+
+/**
+ * Daftar semua menu (centralized)
+ * Kamu bisa menambahkan `roles` sesuai kebutuhan.
+ */
+const allMenuList: MenuItem[] = [
+  {
+    title: 'Dashboard',
+    url: '/dashboard',
+    icon: LayoutDashboard,
+  },
+  {
+    title: 'Profile Desa',
+    url: '/village',
+    icon: ClipboardPenLine,
+    roles: ['ADMIN', 'OPERATOR'],
+  },
+  {
+    title: 'Penduduk',
+    url: '/#',
+    icon: UsersRound,
+    roles: ['ADMIN', 'OPERATOR'],
+    sub: [
+      {
+        title: 'Keluarga',
+        url: '/families',
+        icon: FileUser,
+      },
+      {
+        title: 'Penduduk',
+        url: '/residents',
+        icon: UsersRound,
+      },
+    ],
+  },
+  {
+    title: 'Organisasi',
+    url: '/#',
+    icon: Route,
+    roles: ['ADMIN', 'OPERATOR'],
+    sub: [
+      {
+        title: 'Perangkat',
+        url: '/organitations/staff',
+        icon: Briefcase,
+      },
+      {
+        title: 'Pengaturan',
+        url: '/organitations/settings',
+        icon: Settings2,
+      },
+    ],
+  },
+  {
+    title: 'APBDESA',
+    url: '/#',
+    icon: CircleDollarSign,
+    roles: ['ADMIN', 'OPERATOR'],
+    sub: [
+      {
+        title: 'Dashboard',
+        url: '/apbdesa',
+        icon: CircleDollarSign,
+      },
+      {
+        title: 'Pendapatan',
+        url: '/apbdesa/revenue',
+        icon: Wallet2,
+      },
+      {
+        title: 'Belanja',
+        url: '/apbdesa/expenses',
+        icon: Wallet2,
+      },
+      {
+        title: 'Pembiayaan',
+        url: '/apbdesa/financing',
+        icon: Wallet2,
+      },
+    ],
+  },
+  {
+    title: 'IDM',
+    url: '/idm',
+    icon: ChartColumnBig,
+    roles: ['ADMIN', 'OPERATOR'], // hanya admin & operator
+  },
+  {
+    title: 'pengaduan',
+    url: '/complaints',
+    icon: BadgeAlert,
+    roles: ['ADMIN', 'OPERATOR'], // hanya admin & operator
+  },
+  {
+    title: 'Article',
+    url: '/article',
+    icon: Newspaper,
+    roles: ['ADMIN', 'OPERATOR', 'EDITOR'], // hanya admin & operator
+  },
+  {
+    title: 'Galeri',
+    url: '/assets',
+    icon: Images,
+    roles: ['ADMIN', 'OPERATOR', 'EDITOR'],
+  },
+  {
+    title: 'Users',
+    url: '/users',
+    icon: Users,
+    roles: ['ADMIN', 'OPERATOR'], // hanya admin & operator
+  },
+  {
+    title: 'Settings',
+    url: '/settings',
+    icon: Settings,
+    roles: ['ADMIN'], // hanya admin
+  },
+];
+
+/**
+ * Fungsi untuk memfilter menu sesuai role user.
+ * Jika menu tidak punya 'roles', berarti dapat diakses semua.
+ */
+export function getRoleBasedMenu(role?: string): MenuItem[] {
+  return allMenuList.filter((item) => {
+    if (!item.roles) return true; // menu publik
+
+    return role ? item.roles.includes(role) : false;
+  });
+}

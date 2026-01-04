@@ -1,11 +1,5 @@
-import { ThemeToggle } from "@/components/ThemeToggle";
-
 const DashboardPage = () => {
-  return (
-    <div>
-      <ThemeToggle />
-    </div>
-  );
+  return <div>Halo</div>;
 };
 
 export default DashboardPage;
