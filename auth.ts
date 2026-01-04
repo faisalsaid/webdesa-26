@@ -35,28 +35,53 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
   callbacks: {
     async jwt({ token, user }) {
+      // Saat login pertama kali, pasang role ke token
       if (user) {
         token.role = user.role;
         return token;
       }
 
-      // cek apakah user masih ada di DB
-      const existingUser = await prisma.user.findUnique({
-        where: { id: token.sub! },
-        select: { id: true },
-      });
+      // SETIAP KALI Sesi divalidasi (karena updateAge: 10 menit):
+      // Ambil data user terbaru dari DB untuk sinkronisasi role
+      try {
+        const dbUser = await prisma.user.findUnique({
+          where: { id: token.sub },
+          select: { role: true }, // Kita hanya butuh role
+        });
 
-      if (!existingUser) token.deleted = true;
+        // JIKA User dihapus atau ROLE BERUBAH dari apa yang ada di token
+        if (!dbUser) {
+          token.forceLogout = true;
+        } else if (dbUser.role !== token.role) {
+          // Opsi A: Update token secara otomatis ke role baru
+          // token.role = dbUser.role;
+
+          // Opsi B: Paksa logout jika role berubah (sesuai permintaan Anda)
+          token.forceLogout = true;
+        }
+      } catch (error) {
+        console.error("Error verifying user role:", error);
+      }
+
       return token;
     },
 
     async session({ session, token }) {
-      if (!token || token.deleted) {
-        return { ...session, user: undefined }; // aman di React
+      // Jika terdeteksi perubahan role, kosongkan session
+      if (token.forceLogout) {
+        // Kita paksa expires menjadi masa lalu
+        return {
+          ...session,
+          user: { id: "", email: "", role: "" }, // Return dummy data
+          expires: "1970-01-01T00:00:00.000Z",
+        };
       }
 
-      session.user.id = token.sub!;
-      session.user.role = token.role;
+      if (session.user) {
+        session.user.id = token.sub ?? "";
+        session.user.role = token.role ?? "USER";
+      }
+
       return session;
     },
   },
