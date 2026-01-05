@@ -1,6 +1,7 @@
 "use server";
 
 import { UserRole } from "@/app/generated/prisma/enums";
+import { authorize } from "@/lib/auth-check";
 import prisma from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
 
@@ -9,6 +10,8 @@ export interface UpdateUserRoleInput {
   role: UserRole;
 }
 export const updateUserRole = async ({ userId, role }: UpdateUserRoleInput) => {
+  await authorize(["ADMIN", "OPERATOR"]);
+
   try {
     const updatedUser = await prisma.user.update({
       where: { id: userId },
