@@ -26,7 +26,6 @@ export default function DeleteUserComp({ id }: { id: string }) {
 
   const handleDelete = async () => {
     setLoading(true);
-
     try {
       await toast.promise(deleteUser(id), {
         loading: "Menghapus data...",

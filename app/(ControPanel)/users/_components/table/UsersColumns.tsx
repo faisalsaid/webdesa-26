@@ -2,6 +2,7 @@ import { ColumnDef } from "@tanstack/react-table";
 import { TUser } from "../../_config/dto/user.type";
 import UserRolesCells from "./UserRolesCells";
 import DeleteUserComp from "../DeleteUserComp";
+import UserActionCell from "../UserActionCell";
 
 export const userColumns: ColumnDef<TUser>[] = [
   {
@@ -35,13 +36,6 @@ export const userColumns: ColumnDef<TUser>[] = [
   {
     id: "action",
     header: "Aksi",
-    cell: ({ row }) => {
-      return (
-        <div className="flex items-center justify-center gap-4">
-          <DeleteUserComp id={row.original.id} />
-          <div>Hapus</div>
-        </div>
-      );
-    },
+    cell: ({ row }) => <UserActionCell id={row.original.id} />,
   },
 ];
