@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import { Button } from '@/components/ui/button';
+import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -8,46 +8,46 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import { LogOutIcon, User } from 'lucide-react';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { signOut } from 'next-auth/react';
-import Link from 'next/link';
-import { Session } from 'next-auth';
+} from "@/components/ui/dropdown-menu";
+import { LogOutIcon, User } from "lucide-react";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { signOut } from "next-auth/react";
+import Link from "next/link";
+
+import { TUser } from "../users/_config/dto/user.type";
 // import { CurrentUser } from '../../_lib/UserProvider';
 
 interface Props {
-  session: Session | null;
+  currentUser: TUser;
 }
 
-const UserMenu = ({ session }: Props) => {
-  const curentUser = session?.user;
+const UserMenu = ({ currentUser }: Props) => {
   return (
     <div className="flex gap-2 items-center">
       <div>
-        <p className="text-sm">{curentUser?.email}</p>
-        <p className="text-xs text-muted-foreground">{curentUser?.role}</p>
+        <p className="text-sm">{currentUser?.email}</p>
+        <p className="text-xs text-muted-foreground">{currentUser?.role}</p>
       </div>
       <DropdownMenu>
         <DropdownMenuTrigger>
           <Avatar className="hover:cursor-pointer">
-            <AvatarImage src={curentUser?.image as string} alt={'profile'} />
+            <AvatarImage src={currentUser?.image as string} alt={"profile"} />
             <AvatarFallback>!</AvatarFallback>
           </Avatar>
         </DropdownMenuTrigger>
         <DropdownMenuContent sideOffset={10}>
           <DropdownMenuLabel>
             <div className=" sm:hidden">
-              <p className="capitalize line-clamp-1 ">{curentUser?.name}</p>
+              <p className="capitalize line-clamp-1 ">{currentUser?.name}</p>
               <p className="text-xs text-muted-foreground capitalize">
-                {curentUser?.role.toLocaleLowerCase()}
+                {currentUser?.role.toLocaleLowerCase()}
               </p>
             </div>
             <p className="hidden sm:block">My Account</p>
           </DropdownMenuLabel>
 
           <DropdownMenuSeparator />
-          <Link href={'/profile'}>
+          <Link href={"/profile"}>
             <DropdownMenuItem>
               <User className="h-[1.2rem] w-[1.2rem] mr-2" />
               Profile
@@ -65,8 +65,8 @@ const UserMenu = ({ session }: Props) => {
         </DropdownMenuItem> */}
           <DropdownMenuItem variant="destructive">
             <Button
-              onClick={() => signOut({ redirectTo: '/' })}
-              variant={'outline'}
+              onClick={() => signOut({ redirectTo: "/" })}
+              variant={"outline"}
             >
               <LogOutIcon className="h-[1.2rem] w-[1.2rem] mr-2" />
               Logout

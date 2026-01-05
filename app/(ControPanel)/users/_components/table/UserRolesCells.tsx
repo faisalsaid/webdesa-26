@@ -34,7 +34,7 @@ import {
   updateUserRole,
   UpdateUserRoleInput,
 } from "../../_config/actions/updateUserRole.action";
-import getCurentUser from "@/lib/helper/getCurentUsers";
+import getCurentUser from "@/lib/helper/getCurrentUsers";
 import { TUser } from "../../_config/dto/user.type";
 import { Spinner } from "@/components/ui/spinner";
 
