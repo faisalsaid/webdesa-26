@@ -22,7 +22,9 @@ const layout = async ({
         <AppSidebar />
         <main className="w-full">
           <CPNavbar />
-          <div className="p-4 ">{children}</div>
+          <div className="p-4 bg-primary-foreground min-h-screen">
+            {children}
+          </div>
         </main>
       </SidebarProvider>
     </>
