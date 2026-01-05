@@ -7,6 +7,7 @@ export const QGetUsers = {
     email: true,
     role: true,
     image: true,
+    createdAt: true,
   },
 } satisfies Prisma.UserFindFirstArgs;
 

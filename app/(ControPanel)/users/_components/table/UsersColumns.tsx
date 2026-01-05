@@ -10,7 +10,7 @@ export const userColumns: ColumnDef<TUser>[] = [
   {
     accessorKey: "role",
 
-    cell: ({ row, table }) => (
+    cell: ({ row }) => (
       <UserRolesCells
         user={{
           id: row.original.id,
@@ -23,5 +23,24 @@ export const userColumns: ColumnDef<TUser>[] = [
   {
     accessorKey: "name",
     header: "Nama",
+  },
+  {
+    accessorKey: "createdAt",
+    header: "Dibuat",
+    cell: ({ row }) => (
+      <div>{row.original.createdAt.toLocaleDateString("en-ID")}</div>
+    ),
+  },
+  {
+    id: "action",
+    header: "Aksi",
+    cell: ({ row }) => {
+      return (
+        <div className="flex items-center justify-center gap-4">
+          <div>Detail</div>
+          <div>Hapus</div>
+        </div>
+      );
+    },
   },
 ];

@@ -34,8 +34,8 @@ import {
   updateUserRole,
   UpdateUserRoleInput,
 } from "../../_config/actions/updateUserRole.action";
-import getCurentUser from "@/lib/helper/getCurrentUsers";
-import { TUser } from "../../_config/dto/user.type";
+import getCurentUser, { TCurentUser } from "@/lib/helper/getCurrentUsers";
+
 import { Spinner } from "@/components/ui/spinner";
 
 type Props = {
@@ -56,7 +56,7 @@ type Props = {
 const roles: UserRole[] = ["ADMIN", "OPERATOR", "EDITOR", "USER"];
 
 const UserRolesCells = ({ user }: Props) => {
-  const [currentUser, setCurrentUser] = useState<TUser | null>(null);
+  const [currentUser, setCurrentUser] = useState<TCurentUser | null>(null);
   const [loading, setLoading] = useState(true);
   const [selectedRole, setSelectedRole] = useState(user.role);
   const [pendingRole, setPendingRole] = useState<UserRole | null>(null);
@@ -99,7 +99,10 @@ const UserRolesCells = ({ user }: Props) => {
     const fetchUser = async () => {
       try {
         const data = await getCurentUser();
-        setCurrentUser(data);
+        if (data) {
+          setCurrentUser(data);
+        } else {
+        }
       } catch (error) {
         console.error("Gagal mengambil user:", error);
       } finally {
@@ -185,11 +188,18 @@ const UserRolesCells = ({ user }: Props) => {
 
 export default UserRolesCells;
 
+const roleStyles: Record<UserRole, string> = {
+  ADMIN: "bg-green-500/10 border-green-500 text-green-700",
+  OPERATOR: "bg-blue-500/10 border-blue-500 text-blue-700",
+  EDITOR: "bg-yellow-500/10 border-yellow-500 text-yellow-700",
+  USER: "bg-slate-500/10 border-slate-500 text-slate-700",
+};
 const RoleBadge = ({ role }: { role: string }) => {
+  const style =
+    roleStyles[role as UserRole] || "bg-gray-100 border-gray-300 text-gray-600";
+
   return (
-    <Badge
-      className={cn("bg-yellow-200/20 border border-yellow-200 text-primary")}
-    >
+    <Badge className={cn("border px-2 py-0.5 font-medium", style)}>
       {role}
     </Badge>
   );
