@@ -4,6 +4,7 @@ import "./globals.css";
 import { auth } from "@/auth";
 import prisma from "@/lib/prisma";
 import { ThemeProvider } from "@/components/theme-provider";
+import { Toaster } from "sonner";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -40,6 +41,7 @@ export default async function RootLayout({
           disableTransitionOnChange
         >
           {children}
+          <Toaster richColors position="top-center" />
         </ThemeProvider>
       </body>
     </html>

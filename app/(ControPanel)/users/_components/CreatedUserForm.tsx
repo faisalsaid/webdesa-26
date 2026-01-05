@@ -40,6 +40,7 @@ import { Separator } from "@/components/ui/separator";
 
 import { CreateUserSchema, TCreateUser } from "../_config/dto/create-user.zod";
 import { userRoleOptions } from "../_config/dto/users.enum";
+import { registerNewUser } from "../_config/actions/createUser.action";
 
 const CreatedUserForm = () => {
   const [open, setOpen] = useState(false);
@@ -56,26 +57,26 @@ const CreatedUserForm = () => {
   const onSubmit = async (data: TCreateUser) => {
     console.log(data);
 
-    // const id = toast.loading("Register new user...");
-    // const res = await registerNewUser({ data });
-    // console.log(data);
-    // toast.dismiss(id);
-    // if (!res.ok) {
-    //   // Error validasi field level
-    //   if ("fieldErrors" in res) {
-    //     Object.values(res.fieldErrors)
-    //       .flat()
-    //       .forEach(() => toast.error("Error...!"));
-    //     return;
-    //   }
-    //   toast.error(res.error);
-    //   return;
-    // }
-    // toast.success("Account created successfully!");
-    // // ✅ Reset form
-    // form.reset();
-    // // ✅ Tutup dialog
-    // setOpen(false);
+    const id = toast.loading("Register new user...");
+    const res = await registerNewUser({ data });
+    console.log(data);
+    toast.dismiss(id);
+    if (!res.ok) {
+      // Error validasi field level
+      if ("fieldErrors" in res) {
+        Object.values(res.fieldErrors)
+          .flat()
+          .forEach(() => toast.error("Error...!"));
+        return;
+      }
+      toast.error(res.error);
+      return;
+    }
+    toast.success("Account created successfully!");
+    // ✅ Reset form
+    form.reset();
+    // ✅ Tutup dialog
+    setOpen(false);
   };
 
   // const emailValue = form.watch('email');
