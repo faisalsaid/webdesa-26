@@ -1,6 +1,7 @@
 import getCurentUser from "@/lib/helper/get CurentUsers";
 import { getAllUser } from "./_config/actions/getAllUsers.action";
 import ContentCard from "../_components/ContentCard";
+import CreatedUserForm from "./_components/CreatedUserForm";
 
 const UsersPage = async () => {
   const curentUser = await getCurentUser();
@@ -12,9 +13,7 @@ const UsersPage = async () => {
       <ContentCard>
         <div className="flex items-center justify-between">
           <h1>Data Pengguna</h1>
-          <div>
-            <div>Tambah Pengguna</div>
-          </div>
+          <div>{curentUser?.role === "ADMIN" ? <CreatedUserForm /> : null}</div>
         </div>
       </ContentCard>
       <div>
