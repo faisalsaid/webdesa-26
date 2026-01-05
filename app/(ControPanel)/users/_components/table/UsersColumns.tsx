@@ -1,5 +1,6 @@
 import { ColumnDef } from "@tanstack/react-table";
 import { TUser } from "../../_config/dto/user.type";
+import UserRolesCells from "./UserRolesCells";
 
 export const userColumns: ColumnDef<TUser>[] = [
   {
@@ -8,7 +9,16 @@ export const userColumns: ColumnDef<TUser>[] = [
   },
   {
     accessorKey: "role",
-    header: "Role",
+
+    cell: ({ row, table }) => (
+      <UserRolesCells
+        user={{
+          id: row.original.id,
+          role: row.original.role,
+          name: row.original.name,
+        }}
+      />
+    ),
   },
   {
     accessorKey: "name",

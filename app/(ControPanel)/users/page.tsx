@@ -1,4 +1,4 @@
-import getCurentUser from "@/lib/helper/get CurentUsers";
+import getCurentUser from "@/lib/helper/getCurentUsers";
 import { getAllUser } from "./_config/actions/getAllUsers.action";
 import ContentCard from "../_components/ContentCard";
 import CreatedUserForm from "./_components/CreatedUserForm";

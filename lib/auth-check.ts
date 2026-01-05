@@ -1,6 +1,6 @@
 // lib/auth-check.ts
 import { UserRole } from "@/app/generated/prisma/enums";
-import getCurentUser from "./helper/get CurentUsers";
+import getCurentUser from "./helper/getCurentUsers";
 
 export async function authorize(allowedRoles?: UserRole[]) {
   // Jika allowedRoles tidak didefinisikan, berarti PUBLIC
