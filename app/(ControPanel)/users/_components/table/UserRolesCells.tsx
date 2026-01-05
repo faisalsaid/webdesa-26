@@ -35,7 +35,6 @@ import {
   UpdateUserRoleInput,
 } from "../../_config/actions/updateUserRole.action";
 import getCurentUser, { TCurentUser } from "@/lib/helper/getCurrentUsers";
-
 import { Spinner } from "@/components/ui/spinner";
 
 type Props = {
