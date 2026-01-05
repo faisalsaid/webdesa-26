@@ -10,4 +10,4 @@ export const QGetUsers = {
   },
 } satisfies Prisma.UserFindFirstArgs;
 
-export type TUsers = Prisma.UserGetPayload<typeof QGetUsers>;
+export type TUser = Prisma.UserGetPayload<typeof QGetUsers>;

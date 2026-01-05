@@ -39,6 +39,8 @@ export async function getAllUser({
       where,
       skip,
       ...QGetUsers,
+      take: pageSize,
+      orderBy: { createdAt: "desc" },
     }),
   ]);
 
