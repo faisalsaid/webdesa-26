@@ -6,9 +6,13 @@ import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import UserMenu from "./UserMenu";
 import getCurrentUser from "@/lib/helper/getCurrentUsers";
+import { Spinner } from "@/components/ui/spinner";
 
 const CPNavbar = async () => {
   const currentUser = await getCurrentUser();
+  if (!currentUser) {
+    return <Spinner />;
+  }
   return (
     <nav className="p-4 flex items-center justify-between sticky top-0 z-10 bg-primary-foreground">
       {/* LEFT */}

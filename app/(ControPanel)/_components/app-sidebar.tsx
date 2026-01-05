@@ -10,17 +10,19 @@ import {
 } from "@/components/ui/sidebar";
 import Link from "next/link";
 
-import { auth } from "@/auth";
-
 import { GalleryVerticalEnd } from "lucide-react";
 import CPSidebarGroup from "./CPSidebarGroup";
 import { getRoleBasedMenu } from "../_config/menuUtils";
+import getCurrentUser from "@/lib/helper/getCurrentUsers";
 
 export async function AppSidebar() {
   // console.log('SIDEBAR');
 
-  const session = await auth();
-  const role = session?.user?.role as string;
+  const currentUser = await getCurrentUser();
+  if (!currentUser) {
+    return <div>No User</div>;
+  }
+  const role = currentUser?.role as string;
 
   // console.log('USER ROLE', role);
 

@@ -5,6 +5,8 @@ import { auth } from "@/auth";
 import prisma from "@/lib/prisma";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "sonner";
+import { ForceLogoutGuard } from "@/components/force-logout-guard";
+import Providers from "@/components/Providers";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -34,15 +36,18 @@ export default async function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          {children}
-          <Toaster richColors position="top-center" />
-        </ThemeProvider>
+        <Providers>
+          <ForceLogoutGuard />
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            {children}
+            <Toaster richColors position="top-center" />
+          </ThemeProvider>
+        </Providers>
       </body>
     </html>
   );

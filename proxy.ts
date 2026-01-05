@@ -69,7 +69,7 @@ export async function proxy(req: NextRequest) {
   // B. Handle Route Protected (Dashboard, dll)
   if (isProtectedRoute) {
     // 1. Cek Login: Jika tidak ada token -> tendang ke login
-    if (!isAuthenticated || token?.deleted) {
+    if (!isAuthenticated || token?.forceLogout) {
       const loginUrl = new URL("/auth/login", req.url);
       loginUrl.searchParams.set("expired", "1");
       loginUrl.searchParams.set("callbackUrl", pathname); // Biar setelah login balik ke sini

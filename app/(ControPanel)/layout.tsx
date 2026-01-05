@@ -3,6 +3,7 @@ import { SidebarProvider } from "@/components/ui/sidebar";
 import { cookies } from "next/headers";
 import { AppSidebar } from "./_components/app-sidebar";
 import CPNavbar from "./_components/CP_Navbar";
+// import { ForceLogoutGuard } from "@/components/force-logout-guard";
 
 const layout = async ({
   children,
@@ -11,6 +12,7 @@ const layout = async ({
   const defaultOpen = cookieStore.get("sidebar_state")?.value === "true";
   return (
     <>
+      {/* <ForceLogoutGuard /> */}
       <SidebarProvider
         defaultOpen={defaultOpen}
         style={
