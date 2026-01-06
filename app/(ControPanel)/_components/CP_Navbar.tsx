@@ -1,3 +1,4 @@
+"use client";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 
 import Link from "next/link";
@@ -5,13 +6,13 @@ import { Home } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import UserMenu from "./UserMenu";
-import getCurrentUser from "@/lib/helper/getCurrentUsers";
-import { Spinner } from "@/components/ui/spinner";
+import { useUserStore } from "@/store/curentUser.store";
+import { CPNavbarSkeleton } from "./CPNavbarSkeleton";
 
-const CPNavbar = async () => {
-  const currentUser = await getCurrentUser();
+const CPNavbar = () => {
+  const currentUser = useUserStore((state) => state.user);
   if (!currentUser) {
-    return <Spinner />;
+    return <CPNavbarSkeleton />;
   }
   return (
     <nav className="p-4 flex items-center justify-between sticky top-0 z-10 bg-primary-foreground">

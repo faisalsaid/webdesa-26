@@ -1,3 +1,4 @@
+"use client";
 import {
   Sidebar,
   SidebarContent,
@@ -13,14 +14,15 @@ import Link from "next/link";
 import { GalleryVerticalEnd } from "lucide-react";
 import CPSidebarGroup from "./CPSidebarGroup";
 import { getRoleBasedMenu } from "../_config/menuUtils";
-import getCurrentUser from "@/lib/helper/getCurrentUsers";
+import { useUserStore } from "@/store/curentUser.store";
+import { AppSidebarSkeleton } from "./AppSidebarSkeleton";
 
-export async function AppSidebar() {
+export function AppSidebar() {
   // console.log('SIDEBAR');
 
-  const currentUser = await getCurrentUser();
+  const currentUser = useUserStore((state) => state.user);
   if (!currentUser) {
-    return <div>No User</div>;
+    return <AppSidebarSkeleton />;
   }
   const role = currentUser?.role as string;
 

@@ -7,6 +7,8 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "sonner";
 import { ForceLogoutGuard } from "@/components/force-logout-guard";
 import Providers from "@/components/Providers";
+import ClientStoreInitializer from "@/components/ClientStoreInitializer";
+import getCurrentUser from "@/lib/helper/getCurrentUsers";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -28,9 +30,7 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const session = await auth();
-  console.log(session);
-
+  const currentUser = await getCurrentUser();
   return (
     <html lang="en" suppressHydrationWarning>
       <body
@@ -44,6 +44,7 @@ export default async function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
+            <ClientStoreInitializer user={currentUser} />
             {children}
             <Toaster richColors position="top-center" />
           </ThemeProvider>
