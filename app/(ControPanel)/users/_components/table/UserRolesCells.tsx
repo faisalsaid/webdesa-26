@@ -18,9 +18,6 @@ import { toast } from "sonner";
 import {
   DropdownMenu,
   DropdownMenuContent,
-  // DropdownMenuItem,
-  // DropdownMenuLabel,
-  // DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Label } from "@/components/ui/label";
@@ -34,8 +31,8 @@ import {
   updateUserRole,
   UpdateUserRoleInput,
 } from "../../_config/actions/updateUserRole.action";
-import getCurentUser, { TCurentUser } from "@/lib/helper/getCurrentUsers";
 import { Spinner } from "@/components/ui/spinner";
+import { useUserStore } from "@/store/curentUser.store";
 
 type Props = {
   user: {
@@ -43,22 +40,18 @@ type Props = {
     role: string;
     name: string | null;
   };
-
-  // currentUser?: {
-  //   id: string;
-  //   name: string | null | undefined;
-  //   email: string | null | undefined;
-  //   role: string;
-  // } | null;
 };
 
 const roles: UserRole[] = ["ADMIN", "OPERATOR", "EDITOR", "USER"];
 
 const UserRolesCells = ({ user }: Props) => {
-  const [currentUser, setCurrentUser] = useState<TCurentUser | null>(null);
-  const [loading, setLoading] = useState(true);
+  const currentUser = useUserStore((state) => state.user);
   const [selectedRole, setSelectedRole] = useState(user.role);
   const [pendingRole, setPendingRole] = useState<UserRole | null>(null);
+
+  useEffect(() => {
+    setSelectedRole(user.role);
+  }, [user.role]);
 
   const filterRole =
     currentUser?.role === "OPERATOR"
@@ -75,16 +68,12 @@ const UserRolesCells = ({ user }: Props) => {
     try {
       await updateUserRole({ userId, role });
       toast.success(`User role updated to ${role}`, { id: toastId });
-      setSelectedRole(role); // Final update
+      setSelectedRole(role);
     } catch (error) {
       console.log(error);
       toast.error("Failed to update user role", { id: toastId });
-      // rollback
-      // setSelectedRole(user.role);
     }
   };
-
-  // console.log(pendingRole);
 
   const canEdit = () => {
     if (!permission) return false;
@@ -94,31 +83,10 @@ const UserRolesCells = ({ user }: Props) => {
     return true; // Admin bebas
   };
 
-  useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        const data = await getCurentUser();
-        if (data) {
-          setCurrentUser(data);
-        } else {
-        }
-      } catch (error) {
-        console.error("Gagal mengambil user:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchUser();
-  }, []);
-
-  if (loading) return <Spinner />;
+  if (!currentUser) return <Spinner />;
 
   return (
     <div className="flex  items-center">
-      {/* <p>{user.role}</p> */}
-      {/* <p className="capitalize">{user.role.toLocaleLowerCase()}</p> */}
-
       <RoleBadge role={selectedRole} />
       {canEdit() && (
         <>
@@ -157,9 +125,9 @@ const UserRolesCells = ({ user }: Props) => {
           {/* confirm role changes */}
           {pendingRole && (
             <ConfirmDialog
-              open={isDialogOpen} // Dialog terbuka jika pendingRole ada isinya
+              open={isDialogOpen}
               onOpenChange={(open) => {
-                if (!open) setPendingRole(null); // Jika ditutup (cancel/klik luar), hapus pendingRole
+                if (!open) setPendingRole(null);
               }}
               title="Confirm Role Change"
               description={

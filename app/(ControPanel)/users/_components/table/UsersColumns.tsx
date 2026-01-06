@@ -1,7 +1,6 @@
 import { ColumnDef } from "@tanstack/react-table";
 import { TUser } from "../../_config/dto/user.type";
 import UserRolesCells from "./UserRolesCells";
-import DeleteUserComp from "../DeleteUserComp";
 import UserActionCell from "../UserActionCell";
 
 export const userColumns: ColumnDef<TUser>[] = [
@@ -14,6 +13,7 @@ export const userColumns: ColumnDef<TUser>[] = [
 
     cell: ({ row }) => (
       <UserRolesCells
+        key={row.original.id}
         user={{
           id: row.original.id,
           role: row.original.role,
@@ -30,12 +30,16 @@ export const userColumns: ColumnDef<TUser>[] = [
     accessorKey: "createdAt",
     header: "Dibuat",
     cell: ({ row }) => (
-      <div>{row.original.createdAt.toLocaleDateString("en-ID")}</div>
+      <div key={row.original.id}>
+        {row.original.createdAt.toLocaleDateString("en-ID")}
+      </div>
     ),
   },
   {
     id: "action",
     header: "Aksi",
-    cell: ({ row }) => <UserActionCell id={row.original.id} />,
+    cell: ({ row }) => (
+      <UserActionCell key={row.original.id} id={row.original.id} />
+    ),
   },
 ];
