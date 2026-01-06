@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/select";
 
 import { Pencil } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { toast } from "sonner";
 
 import {
@@ -48,10 +48,6 @@ const UserRolesCells = ({ user }: Props) => {
   const currentUser = useUserStore((state) => state.user);
   const [selectedRole, setSelectedRole] = useState(user.role);
   const [pendingRole, setPendingRole] = useState<UserRole | null>(null);
-
-  useEffect(() => {
-    setSelectedRole(user.role);
-  }, [user.role]);
 
   const filterRole =
     currentUser?.role === "OPERATOR"
