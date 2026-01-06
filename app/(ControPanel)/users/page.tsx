@@ -23,7 +23,6 @@ const UsersPage = async ({
       <ContentCard>
         <div className="flex items-center justify-between">
           <h1>Data Pengguna</h1>
-          <div>Halo : {curentUser?.email}</div>
           <div>{curentUser?.role === "ADMIN" ? <CreatedUserForm /> : null}</div>
         </div>
       </ContentCard>
