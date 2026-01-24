@@ -47,3 +47,8 @@ export type Authenticator = Prisma.AuthenticatorModel
  * 
  */
 export type PasswordResetToken = Prisma.PasswordResetTokenModel
+/**
+ * Model VillageConfig
+ * 
+ */
+export type VillageConfig = Prisma.VillageConfigModel

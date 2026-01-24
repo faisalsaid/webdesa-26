@@ -389,7 +389,8 @@ export const ModelName = {
   Session: 'Session',
   VerificationToken: 'VerificationToken',
   Authenticator: 'Authenticator',
-  PasswordResetToken: 'PasswordResetToken'
+  PasswordResetToken: 'PasswordResetToken',
+  VillageConfig: 'VillageConfig'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -405,7 +406,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "account" | "session" | "verificationToken" | "authenticator" | "passwordResetToken"
+    modelProps: "user" | "account" | "session" | "verificationToken" | "authenticator" | "passwordResetToken" | "villageConfig"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -853,6 +854,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    VillageConfig: {
+      payload: Prisma.$VillageConfigPayload<ExtArgs>
+      fields: Prisma.VillageConfigFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.VillageConfigFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VillageConfigPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.VillageConfigFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VillageConfigPayload>
+        }
+        findFirst: {
+          args: Prisma.VillageConfigFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VillageConfigPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.VillageConfigFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VillageConfigPayload>
+        }
+        findMany: {
+          args: Prisma.VillageConfigFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VillageConfigPayload>[]
+        }
+        create: {
+          args: Prisma.VillageConfigCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VillageConfigPayload>
+        }
+        createMany: {
+          args: Prisma.VillageConfigCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.VillageConfigCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VillageConfigPayload>[]
+        }
+        delete: {
+          args: Prisma.VillageConfigDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VillageConfigPayload>
+        }
+        update: {
+          args: Prisma.VillageConfigUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VillageConfigPayload>
+        }
+        deleteMany: {
+          args: Prisma.VillageConfigDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.VillageConfigUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.VillageConfigUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VillageConfigPayload>[]
+        }
+        upsert: {
+          args: Prisma.VillageConfigUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VillageConfigPayload>
+        }
+        aggregate: {
+          args: Prisma.VillageConfigAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateVillageConfig>
+        }
+        groupBy: {
+          args: Prisma.VillageConfigGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.VillageConfigGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.VillageConfigCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.VillageConfigCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -972,6 +1047,49 @@ export const PasswordResetTokenScalarFieldEnum = {
 export type PasswordResetTokenScalarFieldEnum = (typeof PasswordResetTokenScalarFieldEnum)[keyof typeof PasswordResetTokenScalarFieldEnum]
 
 
+export const VillageConfigScalarFieldEnum = {
+  id: 'id',
+  villageCode: 'villageCode',
+  villageName: 'villageName',
+  districtCode: 'districtCode',
+  districtName: 'districtName',
+  regencyCode: 'regencyCode',
+  regencyName: 'regencyName',
+  provinceCode: 'provinceCode',
+  provinceName: 'provinceName',
+  officeAddress: 'officeAddress',
+  postalCode: 'postalCode',
+  phone: 'phone',
+  email: 'email',
+  website: 'website',
+  establishedYear: 'establishedYear',
+  description: 'description',
+  areaSize: 'areaSize',
+  areaUnit: 'areaUnit',
+  populationTotal: 'populationTotal',
+  hamletCount: 'hamletCount',
+  rwCount: 'rwCount',
+  rtCount: 'rtCount',
+  borderNorth: 'borderNorth',
+  borderEast: 'borderEast',
+  borderSouth: 'borderSouth',
+  borderWest: 'borderWest',
+  elevation: 'elevation',
+  latitude: 'latitude',
+  longitude: 'longitude',
+  logoUrl: 'logoUrl',
+  officePhotoUrl: 'officePhotoUrl',
+  vision: 'vision',
+  mission: 'mission',
+  slogan: 'slogan',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type VillageConfigScalarFieldEnum = (typeof VillageConfigScalarFieldEnum)[keyof typeof VillageConfigScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -1078,6 +1196,20 @@ export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, '
 export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
     
 
+
+/**
+ * Reference to a field of type 'Decimal'
+ */
+export type DecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Decimal'>
+    
+
+
+/**
+ * Reference to a field of type 'Decimal[]'
+ */
+export type ListDecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Decimal[]'>
+    
+
 /**
  * Batch Payload for updateMany & deleteMany & createMany
  */
@@ -1179,6 +1311,7 @@ export type GlobalOmitConfig = {
   verificationToken?: Prisma.VerificationTokenOmit
   authenticator?: Prisma.AuthenticatorOmit
   passwordResetToken?: Prisma.PasswordResetTokenOmit
+  villageConfig?: Prisma.VillageConfigOmit
 }
 
 /* Types for Logging */

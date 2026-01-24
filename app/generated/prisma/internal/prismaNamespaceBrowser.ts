@@ -56,7 +56,8 @@ export const ModelName = {
   Session: 'Session',
   VerificationToken: 'VerificationToken',
   Authenticator: 'Authenticator',
-  PasswordResetToken: 'PasswordResetToken'
+  PasswordResetToken: 'PasswordResetToken',
+  VillageConfig: 'VillageConfig'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -153,6 +154,49 @@ export const PasswordResetTokenScalarFieldEnum = {
 } as const
 
 export type PasswordResetTokenScalarFieldEnum = (typeof PasswordResetTokenScalarFieldEnum)[keyof typeof PasswordResetTokenScalarFieldEnum]
+
+
+export const VillageConfigScalarFieldEnum = {
+  id: 'id',
+  villageCode: 'villageCode',
+  villageName: 'villageName',
+  districtCode: 'districtCode',
+  districtName: 'districtName',
+  regencyCode: 'regencyCode',
+  regencyName: 'regencyName',
+  provinceCode: 'provinceCode',
+  provinceName: 'provinceName',
+  officeAddress: 'officeAddress',
+  postalCode: 'postalCode',
+  phone: 'phone',
+  email: 'email',
+  website: 'website',
+  establishedYear: 'establishedYear',
+  description: 'description',
+  areaSize: 'areaSize',
+  areaUnit: 'areaUnit',
+  populationTotal: 'populationTotal',
+  hamletCount: 'hamletCount',
+  rwCount: 'rwCount',
+  rtCount: 'rtCount',
+  borderNorth: 'borderNorth',
+  borderEast: 'borderEast',
+  borderSouth: 'borderSouth',
+  borderWest: 'borderWest',
+  elevation: 'elevation',
+  latitude: 'latitude',
+  longitude: 'longitude',
+  logoUrl: 'logoUrl',
+  officePhotoUrl: 'officePhotoUrl',
+  vision: 'vision',
+  mission: 'mission',
+  slogan: 'slogan',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type VillageConfigScalarFieldEnum = (typeof VillageConfigScalarFieldEnum)[keyof typeof VillageConfigScalarFieldEnum]
 
 
 export const SortOrder = {
