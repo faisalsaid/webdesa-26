@@ -57,7 +57,10 @@ export const ModelName = {
   VerificationToken: 'VerificationToken',
   Authenticator: 'Authenticator',
   PasswordResetToken: 'PasswordResetToken',
-  VillageConfig: 'VillageConfig'
+  VillageConfig: 'VillageConfig',
+  Resident: 'Resident',
+  Family: 'Family',
+  Visitor: 'Visitor'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -197,6 +200,82 @@ export const VillageConfigScalarFieldEnum = {
 } as const
 
 export type VillageConfigScalarFieldEnum = (typeof VillageConfigScalarFieldEnum)[keyof typeof VillageConfigScalarFieldEnum]
+
+
+export const ResidentScalarFieldEnum = {
+  id: 'id',
+  urlId: 'urlId',
+  nik: 'nik',
+  fullName: 'fullName',
+  imageUrl: 'imageUrl',
+  imageKey: 'imageKey',
+  gender: 'gender',
+  birthPlace: 'birthPlace',
+  birthDate: 'birthDate',
+  religion: 'religion',
+  education: 'education',
+  occupation: 'occupation',
+  maritalStatus: 'maritalStatus',
+  bloodType: 'bloodType',
+  disabilityType: 'disabilityType',
+  citizenship: 'citizenship',
+  passportNumber: 'passportNumber',
+  ethnicity: 'ethnicity',
+  nationality: 'nationality',
+  address: 'address',
+  dusun: 'dusun',
+  rw: 'rw',
+  rt: 'rt',
+  phone: 'phone',
+  email: 'email',
+  populationStatus: 'populationStatus',
+  familyRelationship: 'familyRelationship',
+  familyId: 'familyId',
+  isActive: 'isActive',
+  deletedAt: 'deletedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ResidentScalarFieldEnum = (typeof ResidentScalarFieldEnum)[keyof typeof ResidentScalarFieldEnum]
+
+
+export const FamilyScalarFieldEnum = {
+  id: 'id',
+  urlId: 'urlId',
+  familyCardNumber: 'familyCardNumber',
+  address: 'address',
+  hamlet: 'hamlet',
+  rw: 'rw',
+  rt: 'rt',
+  headOfFamilyId: 'headOfFamilyId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type FamilyScalarFieldEnum = (typeof FamilyScalarFieldEnum)[keyof typeof FamilyScalarFieldEnum]
+
+
+export const VisitorScalarFieldEnum = {
+  id: 'id',
+  urlId: 'urlId',
+  residentId: 'residentId',
+  originAddress: 'originAddress',
+  originVillage: 'originVillage',
+  originDistrict: 'originDistrict',
+  originRegency: 'originRegency',
+  originProvince: 'originProvince',
+  arrivalDate: 'arrivalDate',
+  purpose: 'purpose',
+  stayType: 'stayType',
+  isStillStaying: 'isStillStaying',
+  departureDate: 'departureDate',
+  notes: 'notes',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type VisitorScalarFieldEnum = (typeof VisitorScalarFieldEnum)[keyof typeof VisitorScalarFieldEnum]
 
 
 export const SortOrder = {

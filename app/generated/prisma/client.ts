@@ -74,3 +74,18 @@ export type PasswordResetToken = Prisma.PasswordResetTokenModel
  * 
  */
 export type VillageConfig = Prisma.VillageConfigModel
+/**
+ * Model Resident
+ * 
+ */
+export type Resident = Prisma.ResidentModel
+/**
+ * Model Family
+ * 
+ */
+export type Family = Prisma.FamilyModel
+/**
+ * Model Visitor
+ * 
+ */
+export type Visitor = Prisma.VisitorModel
