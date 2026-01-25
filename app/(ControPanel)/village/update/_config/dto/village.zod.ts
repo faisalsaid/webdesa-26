@@ -1,7 +1,7 @@
 import z from "zod";
 
 export const villageConfigSchema = z.object({
-  id: z.string().optional(),
+  id: z.int().optional(),
   villageCode: z.string().max(10).min(1, "Wajib Terisi"),
   villageName: z.string().min(3, "Wajib Terisi"),
 

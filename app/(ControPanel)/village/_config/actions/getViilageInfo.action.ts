@@ -3,11 +3,12 @@
 import { authorize } from "@/lib/auth-check";
 import prisma from "@/lib/prisma";
 import { QGetVillage, TVillage } from "../dto/village.type";
+import { TVillageInput } from "../../update/_config/dto/villageForm.type";
 
 export type VillageResult = {
   success: boolean;
   message?: string;
-  data?: TVillage;
+  data?: TVillageInput;
 };
 
 export const getVillageData = async (): Promise<VillageResult> => {
@@ -25,9 +26,14 @@ export const getVillageData = async (): Promise<VillageResult> => {
       };
     }
 
+    const sanitize = {
+      ...res,
+      latitude: res.latitude?.toNumber(),
+      longitude: res.longitude?.toNumber(),
+    };
     return {
       success: true,
-      data: res,
+      data: sanitize,
     };
   } catch (error: unknown) {
     console.log(error);

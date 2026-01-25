@@ -33,17 +33,41 @@ import { Button } from "@/components/ui/button";
 import { useTransition } from "react";
 import { TVillageInput } from "../_config/dto/villageForm.type";
 import { villageConfigSchema } from "../_config/dto/village.zod";
+import { toast } from "sonner";
+import { addVillageData } from "../_config/actions/addVillageData.action";
 
-const VillageFormComp = () => {
+interface Props {
+  devaultData?: TVillageInput;
+}
+
+const VillageFormComp = ({ devaultData }: Props) => {
+  const isEdit = !!devaultData;
+
   const [isPending, startTransition] = useTransition();
 
   const form = useForm({
     resolver: zodResolver(villageConfigSchema),
-    defaultValues: {},
+    defaultValues: devaultData ? devaultData : {},
   });
 
   const onSubmit = (value: TVillageInput) => {
     console.log(value);
+
+    startTransition(async () => {
+      try {
+        if (isEdit) {
+          alert("edit");
+        } else {
+          const res = await addVillageData(value);
+          if (!res.success) {
+            toast.error("Profil desa gagal dibuat!");
+          }
+          toast.success(res.message);
+        }
+      } catch (error: unknown) {
+        toast.error("Ups!, terjadi kesalahan!");
+      }
+    });
   };
 
   const { isSubmitting, isValid } = form.formState;

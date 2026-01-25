@@ -5,9 +5,11 @@ import { getVillageData } from "./_config/actions/getViilageInfo.action";
 const VillagePage = async () => {
   const village = await getVillageData();
 
+  const haveData = village?.success === true && village?.data;
+
   return (
     <div className="space-y-4">
-      <ViilageHeaderComp />
+      <ViilageHeaderComp haveData={!!haveData} />
       <VillageContentComp bucket={village} />
     </div>
   );
