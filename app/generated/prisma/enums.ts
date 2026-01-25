@@ -17,3 +17,127 @@ export const UserRole = {
 } as const
 
 export type UserRole = (typeof UserRole)[keyof typeof UserRole]
+
+
+export const Gender = {
+  MALE: 'MALE',
+  FEMALE: 'FEMALE'
+} as const
+
+export type Gender = (typeof Gender)[keyof typeof Gender]
+
+
+export const Religion = {
+  ISLAM: 'ISLAM',
+  CHRISTIAN: 'CHRISTIAN',
+  CATHOLIC: 'CATHOLIC',
+  HINDU: 'HINDU',
+  BUDDHIST: 'BUDDHIST',
+  CONFUCIAN: 'CONFUCIAN',
+  OTHER: 'OTHER'
+} as const
+
+export type Religion = (typeof Religion)[keyof typeof Religion]
+
+
+export const Education = {
+  NONE: 'NONE',
+  ELEMENTARY: 'ELEMENTARY',
+  JUNIOR_HIGH: 'JUNIOR_HIGH',
+  SENIOR_HIGH: 'SENIOR_HIGH',
+  VOCATIONAL_HIGH: 'VOCATIONAL_HIGH',
+  DIPLOMA_1: 'DIPLOMA_1',
+  DIPLOMA_2: 'DIPLOMA_2',
+  DIPLOMA_3: 'DIPLOMA_3',
+  BACHELOR: 'BACHELOR',
+  MASTER: 'MASTER',
+  DOCTORATE: 'DOCTORATE',
+  OTHER: 'OTHER'
+} as const
+
+export type Education = (typeof Education)[keyof typeof Education]
+
+
+export const MaritalStatus = {
+  SINGLE: 'SINGLE',
+  MARRIED: 'MARRIED',
+  DIVORCED: 'DIVORCED',
+  WIDOWED: 'WIDOWED'
+} as const
+
+export type MaritalStatus = (typeof MaritalStatus)[keyof typeof MaritalStatus]
+
+
+export const Occupation = {
+  FARMER: 'FARMER',
+  FISHERMAN: 'FISHERMAN',
+  TRADER: 'TRADER',
+  CIVIL_SERVANT: 'CIVIL_SERVANT',
+  MILITARY: 'MILITARY',
+  POLICE: 'POLICE',
+  PRIVATE_EMPLOYEE: 'PRIVATE_EMPLOYEE',
+  TEACHER: 'TEACHER',
+  STUDENT: 'STUDENT',
+  UNIVERSITY_STUDENT: 'UNIVERSITY_STUDENT',
+  LABORER: 'LABORER',
+  HOUSEWIFE: 'HOUSEWIFE',
+  UNEMPLOYED: 'UNEMPLOYED',
+  OTHER: 'OTHER'
+} as const
+
+export type Occupation = (typeof Occupation)[keyof typeof Occupation]
+
+
+export const BloodType = {
+  A: 'A',
+  B: 'B',
+  AB: 'AB',
+  O: 'O',
+  UNKNOWN: 'UNKNOWN'
+} as const
+
+export type BloodType = (typeof BloodType)[keyof typeof BloodType]
+
+
+export const PopulationStatus = {
+  PERMANENT: 'PERMANENT',
+  TEMPORARY: 'TEMPORARY',
+  MOVED_OUT: 'MOVED_OUT',
+  DECEASED: 'DECEASED'
+} as const
+
+export type PopulationStatus = (typeof PopulationStatus)[keyof typeof PopulationStatus]
+
+
+export const DisabilityType = {
+  NONE: 'NONE',
+  PHYSICAL: 'PHYSICAL',
+  VISUAL: 'VISUAL',
+  HEARING: 'HEARING',
+  MENTAL: 'MENTAL',
+  INTELLECTUAL: 'INTELLECTUAL',
+  MULTIPLE: 'MULTIPLE',
+  OTHER: 'OTHER'
+} as const
+
+export type DisabilityType = (typeof DisabilityType)[keyof typeof DisabilityType]
+
+
+export const Citizenship = {
+  WNI: 'WNI',
+  WNA: 'WNA'
+} as const
+
+export type Citizenship = (typeof Citizenship)[keyof typeof Citizenship]
+
+
+export const FamilyRelationship = {
+  HEAD: 'HEAD',
+  SPOUSE: 'SPOUSE',
+  CHILD: 'CHILD',
+  PARENT: 'PARENT',
+  SIBLING: 'SIBLING',
+  OTHER: 'OTHER'
+} as const
+
+export type FamilyRelationship = (typeof FamilyRelationship)[keyof typeof FamilyRelationship]
