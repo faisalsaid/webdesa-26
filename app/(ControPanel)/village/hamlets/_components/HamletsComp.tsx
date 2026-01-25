@@ -2,8 +2,7 @@
 
 import ContentCard from "@/app/(ControPanel)/_components/ContentCard";
 import EmptyComp from "@/components/EmptyComp";
-import { Button } from "@/components/ui/button";
-import { Plus } from "lucide-react";
+import AddHamletButton from "./AddHamletButton";
 
 interface Props {
   haveHamlet: boolean;
@@ -17,19 +16,13 @@ const HamletsComp = ({ haveHamlet }: Props) => {
       <ContentCard className="flex items-center justify-between">
         <h1 className="text-2xl font-semibold">Dusun</h1>
         <div>
-          <Button>
-            <Plus />
-            <span>Buat Dusun</span>
-          </Button>
+          <AddHamletButton />
         </div>
       </ContentCard>
 
       {!haveHamlet ? (
         <EmptyComp>
-          <Button>
-            <Plus />
-            <span>Buat Dusun</span>
-          </Button>
+          <AddHamletButton />
         </EmptyComp>
       ) : (
         <div>Hallo</div>
