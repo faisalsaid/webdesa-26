@@ -40,4 +40,12 @@ export const QGetVillage = {
   },
 } satisfies Prisma.VillageConfigFindFirstArgs;
 
-export type TVillage = Prisma.VillageConfigGetPayload<typeof QGetVillage>;
+// export type TVillage = Prisma.VillageConfigGetPayload<typeof QGetVillage>;
+
+export type TVillage = Omit<
+  Prisma.VillageConfigGetPayload<typeof QGetVillage>,
+  "latitude" | "longitude"
+> & {
+  latitude: string | null;
+  longitude: string | null;
+};

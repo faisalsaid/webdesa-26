@@ -1,8 +1,8 @@
-import { getVillageData } from "../_config/actions/getViilageInfo.action";
 import VillageFormComp from "./_components/VillageFormComp";
+import { getVillageDevaultData } from "./_config/actions/getVillageDevaultData.action";
 
 const UpdateVillagePage = async () => {
-  const village = await getVillageData();
+  const village = await getVillageDevaultData();
 
   const villageData = village?.data ? village.data : undefined;
 

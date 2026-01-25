@@ -2,35 +2,38 @@
 
 import { authorize } from "@/lib/auth-check";
 import prisma from "@/lib/prisma";
-import { QGetVillage, TVillage } from "../dto/village.type";
+import { TVillageInput } from "../dto/villageForm.type";
+import { QGetVillage } from "../../../_config/dto/village.type";
 
 export type VillageResult = {
   success: boolean;
   message?: string;
-  data?: TVillage;
+  data?: TVillageInput;
 };
 
-export const getVillageData = async (): Promise<VillageResult> => {
+export const getVillageDevaultData = async (): Promise<VillageResult> => {
   authorize(["ADMIN", "OPERATOR"]);
 
   try {
-    const village = await prisma.villageConfig.findFirst(QGetVillage);
+    const res = await prisma.villageConfig.findFirst({
+      ...QGetVillage,
+    });
 
-    if (!village) {
+    if (!res) {
       return {
         success: false,
         message: "Village data is null",
       };
     }
 
-    const formattedVillage: TVillage = {
-      ...village,
-      latitude: village?.latitude?.toString() ?? null,
-      longitude: village?.longitude?.toString() ?? null,
+    const sanitize = {
+      ...res,
+      latitude: res.latitude?.toNumber(),
+      longitude: res.longitude?.toNumber(),
     };
     return {
       success: true,
-      data: formattedVillage,
+      data: sanitize,
     };
   } catch (error: unknown) {
     console.log(error);
