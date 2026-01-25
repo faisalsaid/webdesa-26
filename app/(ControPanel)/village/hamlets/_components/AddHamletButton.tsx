@@ -13,10 +13,13 @@ import {
 } from "@/components/ui/dialog";
 import { Separator } from "@/components/ui/separator";
 import HamletForm from "./HamletForm";
+import { useState } from "react";
 
 const AddHamletButton = () => {
+  const [dialogOpen, setDialogOpen] = useState<boolean>(false);
+
   return (
-    <Dialog>
+    <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
       <DialogTrigger asChild>
         <Button>
           <Plus />
@@ -30,7 +33,7 @@ const AddHamletButton = () => {
         </DialogHeader>
 
         <Separator />
-        <HamletForm />
+        <HamletForm setModal={() => setDialogOpen(false)} />
       </DialogContent>
     </Dialog>
   );
