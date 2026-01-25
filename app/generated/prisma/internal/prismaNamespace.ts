@@ -391,6 +391,7 @@ export const ModelName = {
   Authenticator: 'Authenticator',
   PasswordResetToken: 'PasswordResetToken',
   VillageConfig: 'VillageConfig',
+  Hamlet: 'Hamlet',
   Resident: 'Resident',
   Family: 'Family',
   Visitor: 'Visitor'
@@ -409,7 +410,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "account" | "session" | "verificationToken" | "authenticator" | "passwordResetToken" | "villageConfig" | "resident" | "family" | "visitor"
+    modelProps: "user" | "account" | "session" | "verificationToken" | "authenticator" | "passwordResetToken" | "villageConfig" | "hamlet" | "resident" | "family" | "visitor"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -931,6 +932,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    Hamlet: {
+      payload: Prisma.$HamletPayload<ExtArgs>
+      fields: Prisma.HamletFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.HamletFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HamletPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.HamletFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HamletPayload>
+        }
+        findFirst: {
+          args: Prisma.HamletFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HamletPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.HamletFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HamletPayload>
+        }
+        findMany: {
+          args: Prisma.HamletFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HamletPayload>[]
+        }
+        create: {
+          args: Prisma.HamletCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HamletPayload>
+        }
+        createMany: {
+          args: Prisma.HamletCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.HamletCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HamletPayload>[]
+        }
+        delete: {
+          args: Prisma.HamletDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HamletPayload>
+        }
+        update: {
+          args: Prisma.HamletUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HamletPayload>
+        }
+        deleteMany: {
+          args: Prisma.HamletDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.HamletUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.HamletUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HamletPayload>[]
+        }
+        upsert: {
+          args: Prisma.HamletUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HamletPayload>
+        }
+        aggregate: {
+          args: Prisma.HamletAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateHamlet>
+        }
+        groupBy: {
+          args: Prisma.HamletGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.HamletGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.HamletCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.HamletCountAggregateOutputType> | number
+        }
+      }
+    }
     Resident: {
       payload: Prisma.$ResidentPayload<ExtArgs>
       fields: Prisma.ResidentFieldRefs
@@ -1313,6 +1388,16 @@ export const VillageConfigScalarFieldEnum = {
 } as const
 
 export type VillageConfigScalarFieldEnum = (typeof VillageConfigScalarFieldEnum)[keyof typeof VillageConfigScalarFieldEnum]
+
+
+export const HamletScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  slug: 'slug',
+  descriptions: 'descriptions'
+} as const
+
+export type HamletScalarFieldEnum = (typeof HamletScalarFieldEnum)[keyof typeof HamletScalarFieldEnum]
 
 
 export const ResidentScalarFieldEnum = {
@@ -1753,6 +1838,7 @@ export type GlobalOmitConfig = {
   authenticator?: Prisma.AuthenticatorOmit
   passwordResetToken?: Prisma.PasswordResetTokenOmit
   villageConfig?: Prisma.VillageConfigOmit
+  hamlet?: Prisma.HamletOmit
   resident?: Prisma.ResidentOmit
   family?: Prisma.FamilyOmit
   visitor?: Prisma.VisitorOmit

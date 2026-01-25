@@ -149,6 +149,15 @@ model VillageConfig {
   updatedAt DateTime @updatedAt
 }
 
+// HAMLET
+
+model Hamlet {
+  id           Int     @id @default(autoincrement())
+  name         String
+  slug         String  @unique
+  descriptions String?
+}
+
 // RESIDENT 
 
 enum Gender {

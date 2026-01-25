@@ -53,6 +53,11 @@ export type PasswordResetToken = Prisma.PasswordResetTokenModel
  */
 export type VillageConfig = Prisma.VillageConfigModel
 /**
+ * Model Hamlet
+ * 
+ */
+export type Hamlet = Prisma.HamletModel
+/**
  * Model Resident
  * 
  */

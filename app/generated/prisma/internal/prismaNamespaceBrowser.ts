@@ -58,6 +58,7 @@ export const ModelName = {
   Authenticator: 'Authenticator',
   PasswordResetToken: 'PasswordResetToken',
   VillageConfig: 'VillageConfig',
+  Hamlet: 'Hamlet',
   Resident: 'Resident',
   Family: 'Family',
   Visitor: 'Visitor'
@@ -200,6 +201,16 @@ export const VillageConfigScalarFieldEnum = {
 } as const
 
 export type VillageConfigScalarFieldEnum = (typeof VillageConfigScalarFieldEnum)[keyof typeof VillageConfigScalarFieldEnum]
+
+
+export const HamletScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  slug: 'slug',
+  descriptions: 'descriptions'
+} as const
+
+export type HamletScalarFieldEnum = (typeof HamletScalarFieldEnum)[keyof typeof HamletScalarFieldEnum]
 
 
 export const ResidentScalarFieldEnum = {
