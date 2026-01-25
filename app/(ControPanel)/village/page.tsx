@@ -1,11 +1,14 @@
 import ViilageHeaderComp from "./_components/VilageHeaderComp";
 import VillageContentComp from "./_components/VillageContentComp";
+import { getVillageData } from "./_config/actions/getViilageInfo.action";
 
-const VillagePage = () => {
+const VillagePage = async () => {
+  const village = await getVillageData();
+
   return (
     <div className="space-y-4">
       <ViilageHeaderComp />
-      <VillageContentComp />
+      <VillageContentComp bucket={village} />
     </div>
   );
 };
