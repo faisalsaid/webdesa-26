@@ -16,7 +16,7 @@ const VillageHeaderComp = ({ haveData }: Props) => {
   return (
     <ContentCard>
       <div className="flex items-center justify-between">
-        <h1>Profil Desa</h1>
+        <h1 className="text-2xl font-semibold">Profil Desa</h1>
 
         {haveData && (
           <Link href={"/village/update"}>

@@ -55,7 +55,7 @@ const VillageFormComp = ({ devaultData }: Props) => {
   });
 
   const onSubmit = (value: TVillageInput) => {
-    console.log(value);
+    // console.log(value);
 
     startTransition(async () => {
       try {
