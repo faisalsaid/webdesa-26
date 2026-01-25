@@ -4,6 +4,8 @@ import { authorize } from "@/lib/auth-check";
 import { TVillageInput } from "../dto/villageForm.type";
 import prisma from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
+import { Prisma } from "@/app/generated/prisma/client";
+import { Decimal } from "@prisma/client/runtime/client";
 
 export type TAddVillageResult = {
   success: boolean;
@@ -17,10 +19,19 @@ export const addVillageData = async (
   console.log(payload);
 
   try {
-    const { id, ...rest } = payload;
+    const { id, longitude, latitude, ...rest } = payload;
     console.log(id); // must be undifiend
 
-    await prisma.villageConfig.create({ data: rest });
+    const createData: Prisma.VillageConfigUncheckedCreateInput = {
+      ...rest,
+      ...(longitude !== undefined && {
+        longitude: new Decimal(longitude!),
+      }),
+      ...(latitude !== undefined && {
+        latitude: new Decimal(latitude!),
+      }),
+    };
+    await prisma.villageConfig.create({ data: createData });
 
     revalidatePath("/");
 
