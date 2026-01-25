@@ -35,12 +35,16 @@ import { TVillageInput } from "../_config/dto/villageForm.type";
 import { villageConfigSchema } from "../_config/dto/village.zod";
 import { toast } from "sonner";
 import { addVillageData } from "../_config/actions/addVillageData.action";
+import { updateVillageProfile } from "../_config/actions/updateVillageData.action";
+import { useRouter } from "next/navigation";
 
 interface Props {
   devaultData?: TVillageInput;
 }
 
 const VillageFormComp = ({ devaultData }: Props) => {
+  const router = useRouter();
+
   const isEdit = !!devaultData;
 
   const [isPending, startTransition] = useTransition();
@@ -56,13 +60,21 @@ const VillageFormComp = ({ devaultData }: Props) => {
     startTransition(async () => {
       try {
         if (isEdit) {
-          alert("edit");
+          const res = await updateVillageProfile(value);
+          if (!res.success) {
+            toast.error("Profil desa gagal diperbarui!");
+            return;
+          }
+          toast.success(res.message);
+          router.push("/village");
         } else {
           const res = await addVillageData(value);
           if (!res.success) {
             toast.error("Profil desa gagal dibuat!");
+            return;
           }
           toast.success(res.message);
+          router.push("/village");
         }
       } catch (error: unknown) {
         toast.error("Ups!, terjadi kesalahan!");
