@@ -1,7 +1,11 @@
 "use client";
 
 import EmptyComp from "@/components/EmptyComp";
-import { THamletsDataTable } from "../_config/dto/hamlet.type";
+import {
+  THamlet,
+  THamletFormInput,
+  THamletsDataTable,
+} from "../_config/dto/hamlet.type";
 import HamletCard from "./HamletCard";
 import { TableSearchForm } from "@/components/TableSearchForm";
 import { TableResetButton } from "@/components/TableResetButton";
@@ -9,6 +13,17 @@ import { useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { LimitSelector } from "@/components/LimitSelector";
 import { TablePagination } from "@/components/TablePagination";
+
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { Separator } from "@/components/ui/separator";
+import HamletForm from "./HamletForm";
 
 interface Props {
   data: THamletsDataTable | undefined;
@@ -19,6 +34,14 @@ const HamletTableComp = ({ data, search: defaultSearch = "" }: Props) => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [searchResetKey, setSearchResetKey] = useState(0);
+  const [updateDialogOpen, setUpdateDialogOpen] = useState<boolean>(false);
+  const [hamlet, setHamlet] = useState<THamletFormInput | null>(null);
+
+  const updateTriger = (hamlet: THamletFormInput) => {
+    setUpdateDialogOpen(true);
+    setHamlet(hamlet);
+    console.log(hamlet.name);
+  };
 
   const handleSearch = (value: string) => {
     router.push(`/village/hamlets?q=${encodeURIComponent(value)}&page=1`);
@@ -63,7 +86,11 @@ const HamletTableComp = ({ data, search: defaultSearch = "" }: Props) => {
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {dataTable.map((hamlet) => (
-              <HamletCard key={hamlet.id} hamlet={hamlet} />
+              <HamletCard
+                key={hamlet.id}
+                hamlet={hamlet}
+                update={updateTriger}
+              />
             ))}
           </div>
         )}
@@ -86,6 +113,19 @@ const HamletTableComp = ({ data, search: defaultSearch = "" }: Props) => {
             onPageChange={(page) => handlePagination(page)}
           />
         </div>
+      </div>
+
+      <div>
+        <Dialog open={updateDialogOpen} onOpenChange={setUpdateDialogOpen}>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>Perbarui Data Dusun</DialogTitle>
+              <DialogDescription></DialogDescription>
+            </DialogHeader>
+            <Separator />
+            <HamletForm initialData={hamlet} />
+          </DialogContent>
+        </Dialog>
       </div>
     </div>
   );

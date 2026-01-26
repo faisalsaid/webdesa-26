@@ -5,10 +5,10 @@ import { QGetHamletsDataTable } from "./hamlet.query";
 
 export type THamletFormInput = z.infer<typeof HamletInputSchema>;
 
-export type THamlets = Prisma.HamletGetPayload<typeof QGetHamletsDataTable>;
+export type THamlet = Prisma.HamletGetPayload<typeof QGetHamletsDataTable>;
 
 export type THamletsDataTable = {
-  dataTable: THamlets[];
+  dataTable: THamlet[];
   meta: {
     total: number;
     page: number;

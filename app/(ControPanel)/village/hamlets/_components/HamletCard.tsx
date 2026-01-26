@@ -1,17 +1,18 @@
 "use client";
 
 import { Card } from "@/components/ui/card";
-import { THamlets } from "../_config/dto/hamlet.type";
+import { THamlet, THamletFormInput } from "../_config/dto/hamlet.type";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Edit2, Trash2, MapPin } from "lucide-react";
 import { motion } from "framer-motion";
 
 interface Props {
-  hamlet: THamlets;
+  hamlet: THamlet;
+  update: (data: THamletFormInput) => void;
 }
 
-const HamletCard = ({ hamlet }: Props) => {
+const HamletCard = ({ hamlet, update }: Props) => {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -69,6 +70,7 @@ const HamletCard = ({ hamlet }: Props) => {
                   variant="ghost"
                   size="icon"
                   className="rounded-full hover:bg-primary/10 hover:text-primary transition-colors"
+                  onClick={() => update(hamlet)}
                 >
                   <Edit2 size={18} />
                 </Button>
