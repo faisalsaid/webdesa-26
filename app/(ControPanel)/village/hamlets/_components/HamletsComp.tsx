@@ -29,11 +29,7 @@ const HamletsComp = ({ haveHamlet, hamletDataTableResult }: Props) => {
         </EmptyComp>
       ) : (
         <div>
-          {hamletDataTabel?.length === 0 ? (
-            <EmptyComp text="Data yang dicari tak ada" />
-          ) : (
-            <HamletTableComp data={hamletDataTableResult?.data} />
-          )}
+          <HamletTableComp data={hamletDataTableResult?.data} />
         </div>
       )}
     </div>

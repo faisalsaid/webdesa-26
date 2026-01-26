@@ -30,6 +30,7 @@ const HamletCard = ({ hamlet }: Props) => {
               fill
               className="object-cover transition-transform duration-500 group-hover:scale-110"
               sizes="(max-width: 768px) 100vw, 40vw"
+              loading="eager"
             />
             <div className="absolute inset-0 bg-linear-to-t from-black/60 via-transparent to-transparent md:bg-linear-to-r md:from-transparent md:to-card/10" />
           </div>
