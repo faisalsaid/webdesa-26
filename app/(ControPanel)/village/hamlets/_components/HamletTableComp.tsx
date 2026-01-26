@@ -2,14 +2,13 @@
 
 import EmptyComp from "@/components/EmptyComp";
 import {
-  THamlet,
   THamletFormInput,
   THamletsDataTable,
 } from "../_config/dto/hamlet.type";
 import HamletCard from "./HamletCard";
 import { TableSearchForm } from "@/components/TableSearchForm";
 import { TableResetButton } from "@/components/TableResetButton";
-import { useState } from "react";
+import { useState, useTransition } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { LimitSelector } from "@/components/LimitSelector";
 import { TablePagination } from "@/components/TablePagination";
@@ -20,10 +19,12 @@ import {
   DialogDescription,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@/components/ui/dialog";
 import { Separator } from "@/components/ui/separator";
 import HamletForm from "./HamletForm";
+import ConfirmDialog from "@/components/ConfirmDialog";
+import { toast } from "sonner";
+import { deleteHamlet } from "../_config/actions/deleteHamlet.action";
 
 interface Props {
   data: THamletsDataTable | undefined;
@@ -36,10 +37,40 @@ const HamletTableComp = ({ data, search: defaultSearch = "" }: Props) => {
   const [searchResetKey, setSearchResetKey] = useState(0);
   const [updateDialogOpen, setUpdateDialogOpen] = useState<boolean>(false);
   const [hamlet, setHamlet] = useState<THamletFormInput | null>(null);
+  const [deleteConfirmDialog, setDeleteConfirmDialog] =
+    useState<boolean>(false);
+  const [isPending, startTransition] = useTransition();
+  const [deletedId, setDeletedId] = useState<number | null>(null);
 
   const updateTriger = (hamlet: THamletFormInput) => {
     setUpdateDialogOpen(true);
     setHamlet(hamlet);
+  };
+
+  const deleteTriger = (id: number, name: string) => {
+    setDeleteConfirmDialog(true);
+    setDeletedId(id);
+    console.log(name);
+  };
+
+  const handleDelete = () => {
+    if (!deletedId) {
+      return;
+    }
+    startTransition(async () => {
+      try {
+        const res = await deleteHamlet(deletedId);
+
+        if (!res.success) {
+          toast.error(res.message ? res.message : "Gagal");
+          return;
+        }
+        toast.success(res.message ? res.message : "Berhasil");
+        router.refresh();
+      } catch (error) {
+        toast.error("Ups!, terjadi kesalahan!");
+      }
+    });
   };
 
   const handleSearch = (value: string) => {
@@ -89,6 +120,7 @@ const HamletTableComp = ({ data, search: defaultSearch = "" }: Props) => {
                 key={hamlet.id}
                 hamlet={hamlet}
                 update={updateTriger}
+                onDelete={deleteTriger}
               />
             ))}
           </div>
@@ -128,6 +160,11 @@ const HamletTableComp = ({ data, search: defaultSearch = "" }: Props) => {
             />
           </DialogContent>
         </Dialog>
+        <ConfirmDialog
+          onConfirm={handleDelete}
+          open={deleteConfirmDialog}
+          onOpenChange={setDeleteConfirmDialog}
+        />
       </div>
     </div>
   );

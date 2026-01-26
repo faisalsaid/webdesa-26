@@ -10,9 +10,10 @@ import { motion } from "framer-motion";
 interface Props {
   hamlet: THamlet;
   update: (data: THamletFormInput) => void;
+  onDelete: (id: number, name: string) => void;
 }
 
-const HamletCard = ({ hamlet, update }: Props) => {
+const HamletCard = ({ hamlet, update, onDelete }: Props) => {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -63,6 +64,7 @@ const HamletCard = ({ hamlet, update }: Props) => {
                   variant="ghost"
                   size="icon"
                   className="rounded-full hover:bg-destructive/10 hover:text-destructive transition-colors"
+                  onClick={() => onDelete(hamlet.id, hamlet.name)}
                 >
                   <Trash2 size={18} />
                 </Button>
