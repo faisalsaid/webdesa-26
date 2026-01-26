@@ -1,11 +1,11 @@
 "use client";
 
-import { redirect } from "next/dist/server/api-utils";
 import { TResidentsDataTableResult } from "../_config/dto/resident.type";
 import ContentCard from "../../_components/ContentCard";
-import { Button } from "@/components/ui/button";
-import { Plus, Users2 } from "lucide-react";
+
+import { Users2 } from "lucide-react";
 import EmptyComp from "@/components/EmptyComp";
+import AddResidentButton from "./AddResidentButton";
 
 interface Props {
   residentDataTable: TResidentsDataTableResult | undefined;
@@ -29,10 +29,7 @@ const ResidentsContentComp = ({ residentDataTable, haveResident }: Props) => {
       <ContentCard className="flex items-center justify-between">
         <h1>Data Penduduk</h1>
         <div>
-          <Button>
-            <Plus />
-            <span>Tambah Penduduk</span>
-          </Button>
+          <AddResidentButton />
         </div>
       </ContentCard>
 
@@ -42,10 +39,7 @@ const ResidentsContentComp = ({ residentDataTable, haveResident }: Props) => {
           title="Tak Ada Data"
           desctiption="Data penduduk tidak ditemukan"
         >
-          <Button>
-            <Plus />
-            <span>Tambah Penduduk</span>
-          </Button>
+          <AddResidentButton />
         </EmptyComp>
       ) : null}
     </div>
