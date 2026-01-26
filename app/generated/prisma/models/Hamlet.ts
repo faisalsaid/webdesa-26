@@ -39,6 +39,8 @@ export type HamletMinAggregateOutputType = {
   name: string | null
   slug: string | null
   descriptions: string | null
+  createdAt: Date | null
+  updatedAt: Date | null
 }
 
 export type HamletMaxAggregateOutputType = {
@@ -46,6 +48,8 @@ export type HamletMaxAggregateOutputType = {
   name: string | null
   slug: string | null
   descriptions: string | null
+  createdAt: Date | null
+  updatedAt: Date | null
 }
 
 export type HamletCountAggregateOutputType = {
@@ -53,6 +57,8 @@ export type HamletCountAggregateOutputType = {
   name: number
   slug: number
   descriptions: number
+  createdAt: number
+  updatedAt: number
   _all: number
 }
 
@@ -70,6 +76,8 @@ export type HamletMinAggregateInputType = {
   name?: true
   slug?: true
   descriptions?: true
+  createdAt?: true
+  updatedAt?: true
 }
 
 export type HamletMaxAggregateInputType = {
@@ -77,6 +85,8 @@ export type HamletMaxAggregateInputType = {
   name?: true
   slug?: true
   descriptions?: true
+  createdAt?: true
+  updatedAt?: true
 }
 
 export type HamletCountAggregateInputType = {
@@ -84,6 +94,8 @@ export type HamletCountAggregateInputType = {
   name?: true
   slug?: true
   descriptions?: true
+  createdAt?: true
+  updatedAt?: true
   _all?: true
 }
 
@@ -178,6 +190,8 @@ export type HamletGroupByOutputType = {
   name: string
   slug: string
   descriptions: string | null
+  createdAt: Date
+  updatedAt: Date
   _count: HamletCountAggregateOutputType | null
   _avg: HamletAvgAggregateOutputType | null
   _sum: HamletSumAggregateOutputType | null
@@ -208,6 +222,8 @@ export type HamletWhereInput = {
   name?: Prisma.StringFilter<"Hamlet"> | string
   slug?: Prisma.StringFilter<"Hamlet"> | string
   descriptions?: Prisma.StringNullableFilter<"Hamlet"> | string | null
+  createdAt?: Prisma.DateTimeFilter<"Hamlet"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"Hamlet"> | Date | string
 }
 
 export type HamletOrderByWithRelationInput = {
@@ -215,6 +231,8 @@ export type HamletOrderByWithRelationInput = {
   name?: Prisma.SortOrder
   slug?: Prisma.SortOrder
   descriptions?: Prisma.SortOrderInput | Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type HamletWhereUniqueInput = Prisma.AtLeast<{
@@ -225,6 +243,8 @@ export type HamletWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.HamletWhereInput | Prisma.HamletWhereInput[]
   name?: Prisma.StringFilter<"Hamlet"> | string
   descriptions?: Prisma.StringNullableFilter<"Hamlet"> | string | null
+  createdAt?: Prisma.DateTimeFilter<"Hamlet"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"Hamlet"> | Date | string
 }, "id" | "slug">
 
 export type HamletOrderByWithAggregationInput = {
@@ -232,6 +252,8 @@ export type HamletOrderByWithAggregationInput = {
   name?: Prisma.SortOrder
   slug?: Prisma.SortOrder
   descriptions?: Prisma.SortOrderInput | Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   _count?: Prisma.HamletCountOrderByAggregateInput
   _avg?: Prisma.HamletAvgOrderByAggregateInput
   _max?: Prisma.HamletMaxOrderByAggregateInput
@@ -247,12 +269,16 @@ export type HamletScalarWhereWithAggregatesInput = {
   name?: Prisma.StringWithAggregatesFilter<"Hamlet"> | string
   slug?: Prisma.StringWithAggregatesFilter<"Hamlet"> | string
   descriptions?: Prisma.StringNullableWithAggregatesFilter<"Hamlet"> | string | null
+  createdAt?: Prisma.DateTimeWithAggregatesFilter<"Hamlet"> | Date | string
+  updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Hamlet"> | Date | string
 }
 
 export type HamletCreateInput = {
   name: string
   slug: string
   descriptions?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type HamletUncheckedCreateInput = {
@@ -260,12 +286,16 @@ export type HamletUncheckedCreateInput = {
   name: string
   slug: string
   descriptions?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type HamletUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   descriptions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type HamletUncheckedUpdateInput = {
@@ -273,6 +303,8 @@ export type HamletUncheckedUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   descriptions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type HamletCreateManyInput = {
@@ -280,12 +312,16 @@ export type HamletCreateManyInput = {
   name: string
   slug: string
   descriptions?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type HamletUpdateManyMutationInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   descriptions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type HamletUncheckedUpdateManyInput = {
@@ -293,6 +329,8 @@ export type HamletUncheckedUpdateManyInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   descriptions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type HamletCountOrderByAggregateInput = {
@@ -300,6 +338,8 @@ export type HamletCountOrderByAggregateInput = {
   name?: Prisma.SortOrder
   slug?: Prisma.SortOrder
   descriptions?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type HamletAvgOrderByAggregateInput = {
@@ -311,6 +351,8 @@ export type HamletMaxOrderByAggregateInput = {
   name?: Prisma.SortOrder
   slug?: Prisma.SortOrder
   descriptions?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type HamletMinOrderByAggregateInput = {
@@ -318,6 +360,8 @@ export type HamletMinOrderByAggregateInput = {
   name?: Prisma.SortOrder
   slug?: Prisma.SortOrder
   descriptions?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type HamletSumOrderByAggregateInput = {
@@ -331,6 +375,8 @@ export type HamletSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   name?: boolean
   slug?: boolean
   descriptions?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
 }, ExtArgs["result"]["hamlet"]>
 
 export type HamletSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -338,6 +384,8 @@ export type HamletSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extens
   name?: boolean
   slug?: boolean
   descriptions?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
 }, ExtArgs["result"]["hamlet"]>
 
 export type HamletSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -345,6 +393,8 @@ export type HamletSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extens
   name?: boolean
   slug?: boolean
   descriptions?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
 }, ExtArgs["result"]["hamlet"]>
 
 export type HamletSelectScalar = {
@@ -352,9 +402,11 @@ export type HamletSelectScalar = {
   name?: boolean
   slug?: boolean
   descriptions?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
 }
 
-export type HamletOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "slug" | "descriptions", ExtArgs["result"]["hamlet"]>
+export type HamletOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "slug" | "descriptions" | "createdAt" | "updatedAt", ExtArgs["result"]["hamlet"]>
 
 export type $HamletPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Hamlet"
@@ -364,6 +416,8 @@ export type $HamletPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     name: string
     slug: string
     descriptions: string | null
+    createdAt: Date
+    updatedAt: Date
   }, ExtArgs["result"]["hamlet"]>
   composites: {}
 }
@@ -791,6 +845,8 @@ export interface HamletFieldRefs {
   readonly name: Prisma.FieldRef<"Hamlet", 'String'>
   readonly slug: Prisma.FieldRef<"Hamlet", 'String'>
   readonly descriptions: Prisma.FieldRef<"Hamlet", 'String'>
+  readonly createdAt: Prisma.FieldRef<"Hamlet", 'DateTime'>
+  readonly updatedAt: Prisma.FieldRef<"Hamlet", 'DateTime'>
 }
     
 

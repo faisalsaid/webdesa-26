@@ -3,13 +3,16 @@
 import ContentCard from "@/app/(ControPanel)/_components/ContentCard";
 import EmptyComp from "@/components/EmptyComp";
 import AddHamletButton from "./AddHamletButton";
+import { THamletDataTableResult } from "../_config/actions/getHamletDataTable.action";
+import HamletTableComp from "./HamletTableComp";
 
 interface Props {
   haveHamlet: boolean;
+  hamletDataTableResult: THamletDataTableResult;
 }
 
-const HamletsComp = ({ haveHamlet }: Props) => {
-  console.log(haveHamlet);
+const HamletsComp = ({ haveHamlet, hamletDataTableResult }: Props) => {
+  const hamletDataTabel = hamletDataTableResult.data?.dataTable;
 
   return (
     <div className="space-y-4">
@@ -25,7 +28,13 @@ const HamletsComp = ({ haveHamlet }: Props) => {
           <AddHamletButton />
         </EmptyComp>
       ) : (
-        <div>Hallo</div>
+        <div>
+          {hamletDataTabel?.length === 0 ? (
+            <EmptyComp text="Data yang dicari tak ada" />
+          ) : (
+            <HamletTableComp data={hamletDataTableResult?.data} />
+          )}
+        </div>
       )}
     </div>
   );

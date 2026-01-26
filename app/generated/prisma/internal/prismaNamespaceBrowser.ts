@@ -207,7 +207,9 @@ export const HamletScalarFieldEnum = {
   id: 'id',
   name: 'name',
   slug: 'slug',
-  descriptions: 'descriptions'
+  descriptions: 'descriptions',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 } as const
 
 export type HamletScalarFieldEnum = (typeof HamletScalarFieldEnum)[keyof typeof HamletScalarFieldEnum]
