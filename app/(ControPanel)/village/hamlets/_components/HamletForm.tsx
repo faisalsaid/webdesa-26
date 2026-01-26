@@ -27,6 +27,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import slugify from "slugify";
 import { createHamlet } from "../_config/actions/createHamlet.action";
+import { updateHamlet } from "../_config/actions/updateHamlet.action";
 
 const HamletForm = ({ initialData, setModal }: HamletFormProps) => {
   const isEditing = !!initialData;
@@ -63,6 +64,17 @@ const HamletForm = ({ initialData, setModal }: HamletFormProps) => {
     startTransition(async () => {
       try {
         if (isEditing) {
+          const res = await updateHamlet(value);
+
+          if (!res.success) {
+            toast.error(res.message);
+            return;
+          }
+          toast.success(res.message);
+
+          if (setModal) {
+            setModal();
+          }
         } else {
           const res = await createHamlet(value);
 
@@ -143,6 +155,7 @@ const HamletForm = ({ initialData, setModal }: HamletFormProps) => {
                     placeholder="e.g. Tentang dusun ..."
                     {...field}
                     className="focus-visible:ring-primary transition-all"
+                    value={field.value ?? ""}
                   />
                 </div>
               </FormControl>

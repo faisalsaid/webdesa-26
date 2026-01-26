@@ -40,7 +40,6 @@ const HamletTableComp = ({ data, search: defaultSearch = "" }: Props) => {
   const updateTriger = (hamlet: THamletFormInput) => {
     setUpdateDialogOpen(true);
     setHamlet(hamlet);
-    console.log(hamlet.name);
   };
 
   const handleSearch = (value: string) => {
@@ -123,7 +122,10 @@ const HamletTableComp = ({ data, search: defaultSearch = "" }: Props) => {
               <DialogDescription></DialogDescription>
             </DialogHeader>
             <Separator />
-            <HamletForm initialData={hamlet} />
+            <HamletForm
+              initialData={hamlet}
+              setModal={() => setUpdateDialogOpen(false)}
+            />
           </DialogContent>
         </Dialog>
       </div>
