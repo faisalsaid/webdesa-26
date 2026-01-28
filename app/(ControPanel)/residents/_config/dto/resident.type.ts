@@ -1,4 +1,6 @@
 import { Prisma } from "@/app/generated/prisma/client";
+import z from "zod";
+import { ResidentInputSchema } from "./resident.zod";
 
 export const QGetResidentsDataTable = {
   select: {
@@ -33,3 +35,5 @@ export type TResidentsDataTableResult = {
     totalPages: number;
   };
 };
+
+export type TResidentFormInput = z.infer<typeof ResidentInputSchema>;

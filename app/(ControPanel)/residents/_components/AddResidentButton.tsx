@@ -23,7 +23,7 @@ const AddResidentButton = () => {
           <span>Tambah Warga</span>
         </Button>
       </DialogTrigger>
-      <DialogContent>
+      <DialogContent className="lg:min-w-[75%] md:min-w-[85%] w-full">
         <DialogHeader>
           <DialogTitle>Tambahkan Warga Baru</DialogTitle>
           <DialogDescription></DialogDescription>
