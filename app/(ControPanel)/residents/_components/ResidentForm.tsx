@@ -45,12 +45,21 @@ import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
 import { Separator } from "@/components/ui/separator";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { useTransition } from "react";
+import { createResident } from "../_config/actions/createResident.action";
+import { toast } from "sonner";
 
-const ResidentForm = () => {
-  const isEdit = true;
+interface Props {
+  defaultValues?: TResidentFormInput;
+}
+
+const ResidentForm = ({ defaultValues }: Props) => {
+  const isEdit = defaultValues;
+  const [isPending, startTransition] = useTransition();
+
   const form = useForm<TResidentFormInput>({
     resolver: zodResolver(ResidentInputSchema),
-    defaultValues: {
+    defaultValues: defaultValues || {
       nik: "",
       fullName: "",
       imageKey: "",
@@ -75,7 +84,19 @@ const ResidentForm = () => {
   });
 
   const onSubmit = (value: TResidentFormInput) => {
-    console.log(value);
+    startTransition(async () => {
+      if (isEdit) {
+        try {
+        } catch (error) {}
+      } else {
+        const res = await createResident(value);
+        if (!res.success) {
+          toast.error(res.message);
+          return;
+        }
+        toast.success(res.message);
+      }
+    });
   };
   const isValid = form.formState.isValid;
   const isSubmitting = form.formState.isSubmitting;
@@ -731,6 +752,15 @@ const ResidentForm = () => {
           </Tabs>
           <Separator />
           <div className="flex gap-4 items-center justify-end">
+            <Button
+              type="button"
+              variant="outline"
+              onClick={() => form.reset()}
+              disabled={isSubmitting || isPending}
+              className="text-rose-500"
+            >
+              Reset
+            </Button>
             <Button
               type="submit"
               className="w-fit"

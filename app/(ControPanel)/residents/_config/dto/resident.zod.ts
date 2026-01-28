@@ -47,7 +47,7 @@ export const ResidentInputSchema = z.object({
   phone: z.string().optional().nullable(),
   email: z.email().optional().nullable(),
 
-  populationStatus: PopulationStatusEnum.optional().nullable(),
+  populationStatus: PopulationStatusEnum.optional(),
 
   familyRelationship: FamilyRelationshipEnum.optional().nullable(),
 
