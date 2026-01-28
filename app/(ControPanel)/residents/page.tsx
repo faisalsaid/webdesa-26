@@ -2,9 +2,22 @@ import ResidentsContentComp from "./_components/ResidentsContentComp";
 import { checkResidentDB } from "./_config/actions/checkResidentDB.action";
 import { getResidentsDataTable } from "./_config/actions/getResidentDataTable.actions";
 
-const ResidentsPage = async () => {
+const ResidentsPage = async ({
+  searchParams,
+}: {
+  searchParams: Promise<{ page?: string; q?: string; pageSize: number }>;
+}) => {
   const haveResidentDB = await checkResidentDB();
-  const residentDataTable = await getResidentsDataTable({});
+
+  const params = await searchParams;
+  const page = Number(params.page ?? 1);
+  const search = params.q ?? "";
+  const pageSize = Number(params.pageSize ?? 10);
+  const residentDataTable = await getResidentsDataTable({
+    page,
+    pageSize,
+    search,
+  });
 
   if (!residentDataTable.success) {
     return (

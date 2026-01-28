@@ -30,7 +30,10 @@ export async function getResidentsDataTable({
 
   const where: Prisma.ResidentWhereInput = search
     ? {
-        OR: [{ fullName: { contains: search, mode: "insensitive" } }],
+        OR: [
+          { fullName: { contains: search, mode: "insensitive" } },
+          { nik: { contains: search, mode: "insensitive" } },
+        ],
       }
     : {};
 
