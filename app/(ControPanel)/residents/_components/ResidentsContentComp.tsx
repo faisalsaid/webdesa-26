@@ -6,6 +6,7 @@ import ContentCard from "../../_components/ContentCard";
 import { Users2 } from "lucide-react";
 import EmptyComp from "@/components/EmptyComp";
 import AddResidentButton from "./AddResidentButton";
+import AllResidentsComp from "./AllResidentsComp";
 
 interface Props {
   residentDataTable: TResidentsDataTableResult | undefined;
@@ -41,7 +42,9 @@ const ResidentsContentComp = ({ residentDataTable, haveResident }: Props) => {
         >
           <AddResidentButton />
         </EmptyComp>
-      ) : null}
+      ) : (
+        <AllResidentsComp residentDataTable={residentDataTable} />
+      )}
     </div>
   );
 };

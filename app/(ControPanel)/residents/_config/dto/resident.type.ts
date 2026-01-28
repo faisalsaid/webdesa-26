@@ -5,6 +5,7 @@ import { ResidentInputSchema } from "./resident.zod";
 export const QGetResidentsDataTable = {
   select: {
     id: true,
+    nik: true,
     urlId: true,
     fullName: true,
     imageUrl: true,

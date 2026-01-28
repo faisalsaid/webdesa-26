@@ -5,7 +5,6 @@ import { getResidentsDataTable } from "./_config/actions/getResidentDataTable.ac
 const ResidentsPage = async () => {
   const haveResidentDB = await checkResidentDB();
   const residentDataTable = await getResidentsDataTable({});
-  console.log(residentDataTable);
 
   if (!residentDataTable.success) {
     return (

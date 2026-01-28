@@ -58,17 +58,17 @@ const HamletTableComp = ({ data, search: defaultSearch = "" }: Props) => {
       return;
     }
     startTransition(async () => {
+      const toastId = toast.loading("Menhapus data...");
       try {
         const res = await deleteHamlet(deletedId);
-
         if (!res.success) {
-          toast.error(res.message ? res.message : "Gagal");
+          toast.error(res.message ? res.message : "Gagal", { id: toastId });
           return;
         }
-        toast.success(res.message ? res.message : "Berhasil");
+        toast.success(res.message ? res.message : "Berhasil", { id: toastId });
         router.refresh();
       } catch (error) {
-        toast.error("Ups!, terjadi kesalahan!");
+        toast.error("Ups!, terjadi kesalahan!", { id: toastId });
       }
     });
   };
