@@ -90,8 +90,6 @@ const ResidentForm = ({ defaultValues, updated }: Props) => {
         if (updated) {
           updated(value);
         }
-        try {
-        } catch (error) {}
       } else {
         const res = await createResident(value);
         if (!res.success) {

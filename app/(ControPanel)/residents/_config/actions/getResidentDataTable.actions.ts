@@ -32,8 +32,9 @@ export async function getResidentsDataTable({
           { fullName: { contains: search, mode: "insensitive" } },
           { nik: { contains: search, mode: "insensitive" } },
         ],
+        deletedAt: null,
       }
-    : {};
+    : { deletedAt: null };
 
   try {
     const total = await prisma.resident.count({ where });
