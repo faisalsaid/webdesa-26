@@ -1,28 +1,7 @@
 import { Prisma } from "@/app/generated/prisma/client";
 import z from "zod";
 import { ResidentInputSchema } from "./resident.zod";
-
-export const QGetResidentsDataTable = {
-  select: {
-    id: true,
-    nik: true,
-    urlId: true,
-    fullName: true,
-    imageUrl: true,
-    gender: true,
-    birthDate: true,
-    populationStatus: true,
-    createdAt: true,
-    updatedAt: true,
-    family: {
-      select: {
-        id: true,
-        urlId: true,
-        familyCardNumber: true,
-      },
-    },
-  },
-} satisfies Prisma.ResidentFindManyArgs;
+import { QGetResidentDetails, QGetResidentsDataTable } from "./resident.query";
 
 export type TResidentsDataTable = Prisma.ResidentGetPayload<
   typeof QGetResidentsDataTable
@@ -38,3 +17,5 @@ export type TResidentsDataTableResult = {
 };
 
 export type TResidentFormInput = z.infer<typeof ResidentInputSchema>;
+
+export type TResident = Prisma.ResidentGetPayload<typeof QGetResidentDetails>;

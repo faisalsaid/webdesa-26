@@ -1,15 +1,33 @@
 "use client";
 
 import EmptyComp from "@/components/EmptyComp";
-import { TResidentsDataTableResult } from "../_config/dto/resident.type";
+import {
+  TResident,
+  TResidentFormInput,
+  TResidentsDataTableResult,
+} from "../_config/dto/resident.type";
 import { User2 } from "lucide-react";
 import { ResidentCard } from "./ResidentCard";
 import { TableSearchForm } from "@/components/TableSearchForm";
 import { TableResetButton } from "@/components/TableResetButton";
-import { useState } from "react";
+import { useState, useTransition } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { LimitSelector } from "@/components/LimitSelector";
 import { TablePagination } from "@/components/TablePagination";
+import { getResidentById } from "../_config/actions/getResidentById.action";
+import { toast } from "sonner";
+
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { Separator } from "@/components/ui/separator";
+import ResidentForm from "./ResidentForm";
+import { updateResidentByID } from "../_config/actions/updateResidentById.actions";
 
 interface Props {
   residentDataTable: TResidentsDataTableResult;
@@ -22,8 +40,11 @@ const AllResidentsComp = ({
 }: Props) => {
   const router = useRouter();
   const searchParams = useSearchParams();
-
   const [searchResetKey, setSearchResetKey] = useState(0);
+  const { meta, dataTable } = residentDataTable;
+  const [isPending, startTransition] = useTransition();
+  const [resident, setResident] = useState<TResident | undefined>(undefined);
+  const [updateDialog, setUpdateDialog] = useState<boolean>(false);
 
   const handleSearch = (value: string) => {
     router.push(`/residents?q=${encodeURIComponent(value)}&page=1`);
@@ -40,7 +61,32 @@ const AllResidentsComp = ({
     router.push(`/residents?${params.toString()}`);
   };
 
-  const { meta, dataTable } = residentDataTable;
+  const updateTriger = (id: number) => {
+    startTransition(async () => {
+      const res = await getResidentById(id);
+      if (!res.success) {
+        toast.error(res.message);
+        return;
+      }
+      setResident(res.resident);
+      setUpdateDialog(true);
+    });
+  };
+
+  const handleUpdate = (payload: TResidentFormInput) => {
+    startTransition(async () => {
+      const res = await updateResidentByID(payload);
+      if (!res.success) {
+        toast.error(res.message ? res.message : "Gagal perbarui data penduduk");
+        return;
+      }
+
+      toast.success(
+        res.message ? res.message : "Berhasil perbarui data penduduk",
+      );
+      setUpdateDialog(false);
+    });
+  };
 
   return (
     <div className="space-y-4">
@@ -65,7 +111,11 @@ const AllResidentsComp = ({
         ) : (
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-5">
             {residentDataTable.dataTable.map((resident) => (
-              <ResidentCard key={resident.id} resident={resident} />
+              <ResidentCard
+                key={resident.id}
+                resident={resident}
+                onUpdate={updateTriger}
+              />
             ))}
           </div>
         )}
@@ -88,6 +138,21 @@ const AllResidentsComp = ({
             onPageChange={(page) => handlePagination(page)}
           />
         </div>
+      </div>
+
+      {/* DILAOG */}
+
+      <div>
+        <Dialog open={updateDialog} onOpenChange={setUpdateDialog}>
+          <DialogContent className="md:min-w-[50%]">
+            <DialogHeader>
+              <DialogTitle>Perbarui Data Penduduk</DialogTitle>
+              <DialogDescription></DialogDescription>
+            </DialogHeader>
+            <Separator />
+            <ResidentForm defaultValues={resident} updated={handleUpdate} />
+          </DialogContent>
+        </Dialog>
       </div>
     </div>
   );

@@ -51,9 +51,10 @@ import { toast } from "sonner";
 
 interface Props {
   defaultValues?: TResidentFormInput;
+  updated?: (payload: TResidentFormInput) => void;
 }
 
-const ResidentForm = ({ defaultValues }: Props) => {
+const ResidentForm = ({ defaultValues, updated }: Props) => {
   const isEdit = defaultValues;
   const [isPending, startTransition] = useTransition();
 
@@ -86,6 +87,9 @@ const ResidentForm = ({ defaultValues }: Props) => {
   const onSubmit = (value: TResidentFormInput) => {
     startTransition(async () => {
       if (isEdit) {
+        if (updated) {
+          updated(value);
+        }
         try {
         } catch (error) {}
       } else {

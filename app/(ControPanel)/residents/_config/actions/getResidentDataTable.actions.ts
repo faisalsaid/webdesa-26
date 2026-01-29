@@ -1,12 +1,10 @@
 "use server";
 
 import { authorize } from "@/lib/auth-check";
-import {
-  QGetResidentsDataTable,
-  TResidentsDataTableResult,
-} from "../dto/resident.type";
+import { TResidentsDataTableResult } from "../dto/resident.type";
 import { Prisma } from "@/app/generated/prisma/client";
 import prisma from "@/lib/prisma";
+import { QGetResidentsDataTable } from "../dto/resident.query";
 
 type Result = {
   success: boolean;

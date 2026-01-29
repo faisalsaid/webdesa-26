@@ -1,14 +1,31 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Calendar, CreditCard, Fingerprint, User2 } from "lucide-react";
+import {
+  Calendar,
+  CreditCard,
+  Edit2,
+  Fingerprint,
+  Trash2,
+  User2,
+} from "lucide-react";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 // import { format } from "date-fns" // Optional: untuk formatting tanggal
-import { TResidentsDataTable } from "../_config/dto/resident.type";
+import {
+  TResident,
+  TResidentFormInput,
+  TResidentsDataTable,
+} from "../_config/dto/resident.type";
+import { Button } from "@/components/ui/button";
 
-export function ResidentCard({ resident }: { resident: TResidentsDataTable }) {
+interface Props {
+  resident: TResidentsDataTable;
+  onUpdate: (id: number) => void;
+}
+
+export function ResidentCard({ resident, onUpdate }: Props) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -83,10 +100,29 @@ export function ResidentCard({ resident }: { resident: TResidentsDataTable }) {
 
           <div className="col-span-2 mt-2">
             <div className="flex items-center justify-between text-[10px] text-zinc-400 dark:text-zinc-500 font-medium uppercase tracking-wider">
-              <span>
-                Terdaftar: {new Date(resident.createdAt).getFullYear()}
-              </span>
-              <span>ID: {resident.id.toString().substring(0, 8)}...</span>
+              <div>
+                <span>
+                  Terdaftar: {new Date(resident.createdAt).getFullYear()}
+                </span>
+              </div>
+
+              <div className="flex gap-2">
+                <Button
+                  className="rounded-full hover:text-rose-600"
+                  size={"icon"}
+                  variant={"outline"}
+                >
+                  <Trash2 />
+                </Button>
+                <Button
+                  className="rounded-full hover:text-emerald-600"
+                  size={"icon"}
+                  variant={"outline"}
+                  onClick={() => onUpdate(resident.id)}
+                >
+                  <Edit2 />
+                </Button>
+              </div>
             </div>
           </div>
         </CardContent>
