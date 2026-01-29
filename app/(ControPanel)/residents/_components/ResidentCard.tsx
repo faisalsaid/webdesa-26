@@ -24,7 +24,7 @@ import Link from "next/link";
 
 interface Props {
   resident: TResidentsDataTable;
-  onUpdate: (id: number) => void;
+  onUpdate: (urlId: string) => void;
 }
 
 export function ResidentCard({ resident, onUpdate }: Props) {
@@ -118,7 +118,7 @@ export function ResidentCard({ resident, onUpdate }: Props) {
                   className="rounded-full hover:text-emerald-600"
                   size={"icon"}
                   variant={"outline"}
-                  onClick={() => onUpdate(resident.id)}
+                  onClick={() => onUpdate(resident.urlId)}
                 >
                   <Edit2 />
                 </Button>

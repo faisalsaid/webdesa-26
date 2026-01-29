@@ -61,9 +61,9 @@ const AllResidentsComp = ({
     router.push(`/residents?${params.toString()}`);
   };
 
-  const updateTriger = (id: number) => {
+  const updateTriger = (urlId: string) => {
     startTransition(async () => {
-      const res = await getResidentById(id);
+      const res = await getResidentById(urlId);
       if (!res.success) {
         toast.error(res.message);
         return;

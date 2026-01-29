@@ -13,7 +13,6 @@ interface ResidentDetails {
 
 const ResidentDetailsPage = async ({ params }: ResidentDetails) => {
   const { residentid } = await params;
-  console.log(residentid);
 
   const res = await getResidentById(residentid);
 
