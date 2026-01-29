@@ -10,12 +10,12 @@ type Result = {
   resident?: TResident;
 };
 
-export async function getResidentById(id: number): Promise<Result> {
+export async function getResidentById(urlId: string): Promise<Result> {
   authorize(["ADMIN", "OPERATOR"]);
 
   try {
     const res = await prisma.resident.findUnique({
-      where: { id },
+      where: { urlId },
     });
 
     if (!res) {

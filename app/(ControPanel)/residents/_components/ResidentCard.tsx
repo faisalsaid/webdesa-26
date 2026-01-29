@@ -5,6 +5,7 @@ import {
   Calendar,
   CreditCard,
   Edit2,
+  Eye,
   Fingerprint,
   Trash2,
   User2,
@@ -19,6 +20,7 @@ import {
   TResidentsDataTable,
 } from "../_config/dto/resident.type";
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 interface Props {
   resident: TResidentsDataTable;
@@ -101,9 +103,7 @@ export function ResidentCard({ resident, onUpdate }: Props) {
           <div className="col-span-2 mt-2">
             <div className="flex items-center justify-between text-[10px] text-zinc-400 dark:text-zinc-500 font-medium uppercase tracking-wider">
               <div>
-                <span>
-                  Terdaftar: {new Date(resident.createdAt).getFullYear()}
-                </span>
+                <span>{new Date(resident.createdAt).getFullYear()}</span>
               </div>
 
               <div className="flex gap-2">
@@ -122,6 +122,16 @@ export function ResidentCard({ resident, onUpdate }: Props) {
                 >
                   <Edit2 />
                 </Button>
+
+                <Link href={`/residents/${resident.urlId}`}>
+                  <Button
+                    className="rounded-full hover:text-sky-600"
+                    size={"icon"}
+                    variant={"outline"}
+                  >
+                    <Eye />
+                  </Button>
+                </Link>
               </div>
             </div>
           </div>
