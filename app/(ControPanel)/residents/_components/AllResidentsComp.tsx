@@ -23,11 +23,13 @@ import {
   DialogDescription,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
+  // DialogTrigger,
 } from "@/components/ui/dialog";
 import { Separator } from "@/components/ui/separator";
 import ResidentForm from "./ResidentForm";
 import { updateResidentByID } from "../_config/actions/updateResidentById.actions";
+import ConfirmDialog from "@/components/ConfirmDialog";
+import { softDeleteResident } from "../_config/actions/softDeleteResident.action";
 
 interface Props {
   residentDataTable: TResidentsDataTableResult;
@@ -45,6 +47,10 @@ const AllResidentsComp = ({
   const [isPending, startTransition] = useTransition();
   const [resident, setResident] = useState<TResident | undefined>(undefined);
   const [updateDialog, setUpdateDialog] = useState<boolean>(false);
+  const [deleteDialog, setDeleteDialog] = useState<boolean>(false);
+  const [residentIdToDelete, setResidentIdToDelete] = useState<number | null>(
+    null,
+  );
 
   const handleSearch = (value: string) => {
     router.push(`/residents?q=${encodeURIComponent(value)}&page=1`);
@@ -88,6 +94,31 @@ const AllResidentsComp = ({
     });
   };
 
+  const deleteTriger = (id: number) => {
+    setResidentIdToDelete(id);
+    setDeleteDialog(true);
+  };
+
+  const handleDelete = () => {
+    startTransition(async () => {
+      const toasID = toast.loading("Menghapus penduduk...");
+      if (!residentIdToDelete) {
+        toast.error("Pilih user untuk dihapus");
+        return;
+      }
+      const res = await softDeleteResident(residentIdToDelete);
+      if (!res.success) {
+        toast.error(res.message ? res.message : "Gagal hapus penduduk", {
+          id: toasID,
+        });
+        return;
+      }
+      toast.success(res.message ? res.message : "Berhasil hapus penduduk", {
+        id: toasID,
+      });
+    });
+  };
+
   return (
     <div className="space-y-4">
       <div className="flex gap-2 items-center w-full ">
@@ -115,6 +146,7 @@ const AllResidentsComp = ({
                 key={resident.id}
                 resident={resident}
                 onUpdate={updateTriger}
+                onDelete={deleteTriger}
               />
             ))}
           </div>
@@ -153,6 +185,15 @@ const AllResidentsComp = ({
             <ResidentForm defaultValues={resident} updated={handleUpdate} />
           </DialogContent>
         </Dialog>
+        <ConfirmDialog
+          title="Yakin Hapus User"
+          onConfirm={handleDelete}
+          onOpenChange={setDeleteDialog}
+          open={deleteDialog}
+          description={"User akan terhapus, tindakan ini tidak bisa diralat"}
+          cancelLabel="Jangan Hapus"
+          confirmLabel="Ya, Hapus User"
+        />
       </div>
     </div>
   );

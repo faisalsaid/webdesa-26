@@ -14,20 +14,17 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 // import { format } from "date-fns" // Optional: untuk formatting tanggal
-import {
-  TResident,
-  TResidentFormInput,
-  TResidentsDataTable,
-} from "../_config/dto/resident.type";
+import { TResidentsDataTable } from "../_config/dto/resident.type";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
 interface Props {
   resident: TResidentsDataTable;
   onUpdate: (urlId: string) => void;
+  onDelete: (id: number) => void;
 }
 
-export function ResidentCard({ resident, onUpdate }: Props) {
+export function ResidentCard({ resident, onUpdate, onDelete }: Props) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -111,6 +108,7 @@ export function ResidentCard({ resident, onUpdate }: Props) {
                   className="rounded-full hover:text-rose-600"
                   size={"icon"}
                   variant={"outline"}
+                  onClick={() => onDelete(resident.id)}
                 >
                   <Trash2 />
                 </Button>
