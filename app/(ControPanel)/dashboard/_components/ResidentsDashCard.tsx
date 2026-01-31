@@ -16,6 +16,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { PopulationStatusLabels } from "../../residents/_config/dto/resident.enum";
+import { useUserStore } from "@/store/curentUser.store";
 
 interface Props {
   residents: TResidentDashboard[] | undefined;
@@ -29,6 +30,8 @@ interface Props {
 }
 
 const ResidentsDashCard = ({ residents, totalCount, stas }: Props) => {
+  const currentUser = useUserStore((state) => state.user);
+
   if (residents?.length === 0 || !residents) {
     return <EmptyComp />;
   }
@@ -44,15 +47,17 @@ const ResidentsDashCard = ({ residents, totalCount, stas }: Props) => {
           <CardTitle className="text-xl font-bold tracking-tight">
             Penduduk
           </CardTitle>
-          <Link href="/residents">
-            <motion.div
-              whileHover={{ scale: 1.1, rotate: 5 }}
-              whileTap={{ scale: 0.9 }}
-              className="p-2 rounded-full bg-primary/10 text-primary hover:bg-primary hover:text-white transition-colors"
-            >
-              <ArrowUpRight size={20} />
-            </motion.div>
-          </Link>
+          {currentUser?.role === "ADMIN" || currentUser?.role === "OPERATOR" ? (
+            <Link href="/residents">
+              <motion.div
+                whileHover={{ scale: 1.1, rotate: 5 }}
+                whileTap={{ scale: 0.9 }}
+                className="p-2 rounded-full bg-primary/10 text-primary hover:bg-primary hover:text-white transition-colors"
+              >
+                <ArrowUpRight size={20} />
+              </motion.div>
+            </Link>
+          ) : null}
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="relative group overflow-hidden rounded-xl bg-zinc-100 dark:bg-zinc-900 p-3 transition-colors hover:bg-zinc-200 dark:hover:bg-zinc-800 space-y-2">

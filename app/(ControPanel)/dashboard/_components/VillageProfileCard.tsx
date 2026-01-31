@@ -16,12 +16,15 @@ import { motion } from "motion/react";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { useUserStore } from "@/store/curentUser.store";
 
 const VillageProfileCard = ({
   village,
 }: {
   village: TVillageDashboard | null;
 }) => {
+  const currentUser = useUserStore((state) => state.user);
+
   if (!village) {
     return (
       <EmptyComp icon={Landmark} desctiption="Tak ada info desa">
@@ -48,15 +51,17 @@ const VillageProfileCard = ({
               ID: {village.villageCode}
             </Badge>
           </div>
-          <Link href="/village">
-            <motion.div
-              whileHover={{ scale: 1.1, rotate: 5 }}
-              whileTap={{ scale: 0.9 }}
-              className="p-2 rounded-full bg-primary/10 text-primary hover:bg-primary hover:text-white transition-colors"
-            >
-              <ArrowUpRight size={20} />
-            </motion.div>
-          </Link>
+          {currentUser?.role === "ADMIN" || currentUser?.role === "OPERATOR" ? (
+            <Link href="/village">
+              <motion.div
+                whileHover={{ scale: 1.1, rotate: 5 }}
+                whileTap={{ scale: 0.9 }}
+                className="p-2 rounded-full bg-primary/10 text-primary hover:bg-primary hover:text-white transition-colors"
+              >
+                <ArrowUpRight size={20} />
+              </motion.div>
+            </Link>
+          ) : null}
         </CardHeader>
 
         <CardContent className="grid gap-4">
