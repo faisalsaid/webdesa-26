@@ -8,9 +8,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ArrowUpRight, LucideIcon, Mars, Venus } from "lucide-react";
 import Link from "next/link";
 
-import { Badge } from "@/components/ui/badge";
-import { Home, Clock, LogOut, Skull, CircleDot } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { Home, Clock, LogOut, Skull } from "lucide-react";
+
 import {
   Tooltip,
   TooltipContent,
@@ -20,11 +19,16 @@ import { PopulationStatusLabels } from "../../residents/_config/dto/resident.enu
 
 interface Props {
   residents: TResidentDashboard[] | undefined;
+  totalCount: number | undefined;
+  stas:
+    | {
+        MALE: number;
+        FEMALE: number;
+      }
+    | undefined;
 }
 
-const ResidentsDashCard = ({ residents }: Props) => {
-  console.log(residents);
-
+const ResidentsDashCard = ({ residents, totalCount, stas }: Props) => {
   if (residents?.length === 0 || !residents) {
     return <EmptyComp />;
   }
@@ -50,11 +54,18 @@ const ResidentsDashCard = ({ residents }: Props) => {
             </motion.div>
           </Link>
         </CardHeader>
-        <CardContent className="">
+        <CardContent className="space-y-4">
           <div className="relative group overflow-hidden rounded-xl bg-zinc-100 dark:bg-zinc-900 p-3 transition-colors hover:bg-zinc-200 dark:hover:bg-zinc-800 space-y-2">
             {residents.map((resident) => (
               <ResidentList key={resident.id} resident={resident} />
             ))}
+          </div>
+          <div className="flex items-center justify-between gap-4 text-sm text-muted-foreground">
+            <p className="">Total : {totalCount} penududuk</p>
+            <div className="flex items-center gap-3">
+              <p>Pria : {stas?.MALE}</p>
+              <p>Wanita : {stas?.FEMALE}</p>
+            </div>
           </div>
         </CardContent>
       </Card>
