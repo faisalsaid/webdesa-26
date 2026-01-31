@@ -14,3 +14,21 @@ export const QGetVilageDashboardQuery = {
 export type TVillageDashboard = Prisma.VillageConfigGetPayload<
   typeof QGetVilageDashboardQuery
 >;
+
+export const QGetResidentsDashboardQuery = {
+  select: {
+    id: true,
+    urlId: true,
+    fullName: true,
+    nik: true,
+    gender: true,
+    isActive: true,
+    imageKey: true,
+    imageUrl: true,
+    populationStatus: true,
+  },
+} satisfies Prisma.ResidentFindManyArgs;
+
+export type TResidentDashboard = Prisma.ResidentGetPayload<
+  typeof QGetResidentsDashboardQuery
+>;

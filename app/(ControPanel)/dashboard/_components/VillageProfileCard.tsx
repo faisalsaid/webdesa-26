@@ -39,7 +39,7 @@ const VillageProfileCard = ({
       transition={{ duration: 0.5 }}
     >
       <Card className="overflow-hidden border-zinc-200 dark:border-zinc-800 bg-white/50 dark:bg-zinc-950/50 backdrop-blur-sm hover:shadow-xl transition-shadow duration-300">
-        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4">
+        <CardHeader className="flex flex-row items-center justify-between space-y-0 ">
           <div className="space-y-1">
             <CardTitle className="text-xl font-bold tracking-tight">
               Profil Desa
