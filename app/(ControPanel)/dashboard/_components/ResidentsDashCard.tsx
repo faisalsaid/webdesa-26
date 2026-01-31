@@ -5,8 +5,18 @@ import { TResidentDashboard } from "../_config/dto/dashboard.type";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { motion } from "motion/react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { ArrowUpRight, Mars, Venus } from "lucide-react";
+import { ArrowUpRight, LucideIcon, Mars, Venus } from "lucide-react";
 import Link from "next/link";
+
+import { Badge } from "@/components/ui/badge";
+import { Home, Clock, LogOut, Skull, CircleDot } from "lucide-react";
+import { cn } from "@/lib/utils";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+import { PopulationStatusLabels } from "../../residents/_config/dto/resident.enum";
 
 interface Props {
   residents: TResidentDashboard[] | undefined;
@@ -54,7 +64,25 @@ const ResidentsDashCard = ({ residents }: Props) => {
 
 export default ResidentsDashCard;
 
+// 1. Konfigurasi Gender
+const GENDER_CONFIG = {
+  MALE: { icon: Mars, color: "text-sky-500", label: "Pria" },
+  FEMALE: { icon: Venus, color: "text-pink-500", label: "Wanita" },
+};
+
+// 2. Konfigurasi Status Populasi
+const STATUS_CONFIG = {
+  DECEASED: { icon: Skull, color: "text-slate-500" },
+  MOVED_OUT: { icon: LogOut, color: "text-amber-500" },
+  TEMPORARY: { icon: Clock, color: "text-blue-500" },
+  PERMANENT: { icon: Home, color: "text-emerald-500" },
+};
+
 const ResidentList = ({ resident }: { resident: TResidentDashboard }) => {
+  const gender = GENDER_CONFIG[resident.gender as keyof typeof GENDER_CONFIG];
+  const status =
+    STATUS_CONFIG[resident.populationStatus as keyof typeof STATUS_CONFIG] ||
+    STATUS_CONFIG.PERMANENT;
   return (
     <div
       className="border p-2 rounded-md flex
@@ -66,17 +94,42 @@ const ResidentList = ({ resident }: { resident: TResidentDashboard }) => {
             {resident.fullName.substring(0, 2).toUpperCase()}
           </AvatarFallback>
         </Avatar>
-        <p>{resident.fullName}</p>
+        <div>
+          <p>{resident.fullName}</p>
+          <p className="text-xs text-muted-foreground"> NIK: {resident.nik}</p>
+        </div>
       </div>
-      <div>
-        <span>
-          {resident.gender === "MALE" ? (
-            <Mars size={16} className="text-sky-500" />
-          ) : (
-            <Venus size={16} className="text-pink-500" />
-          )}
-        </span>
+      <div className="flex gap-2">
+        <StatusIcon
+          icon={gender.icon}
+          label={gender.label}
+          className={gender.color}
+        />
+        <StatusIcon
+          icon={status.icon}
+          label={PopulationStatusLabels[resident.populationStatus]}
+          className={status.color}
+        />
       </div>
     </div>
   );
 };
+
+const StatusIcon = ({
+  icon: Icon,
+  label,
+  className,
+}: {
+  icon: LucideIcon;
+  label: string;
+  className?: string;
+}) => (
+  <Tooltip>
+    <TooltipTrigger asChild>
+      <Icon size={18} className={className} />
+    </TooltipTrigger>
+    <TooltipContent>
+      <p>{label}</p>
+    </TooltipContent>
+  </Tooltip>
+);
