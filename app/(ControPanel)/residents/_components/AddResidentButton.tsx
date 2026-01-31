@@ -24,7 +24,7 @@ const AddResidentButton = () => {
   const [openDialog, setOpenDialog] = useState<boolean>(false);
 
   const trigerCreate = (resident: TResidentFormInput) => {
-    console.log(resident);
+    // console.log(resident);
     startTransition(async () => {
       const res = await createResident(resident);
       if (!res.success) {

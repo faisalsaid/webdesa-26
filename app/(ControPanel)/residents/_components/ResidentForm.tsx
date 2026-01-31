@@ -45,9 +45,6 @@ import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
 import { Separator } from "@/components/ui/separator";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { useTransition } from "react";
-import { createResident } from "../_config/actions/createResident.action";
-import { toast } from "sonner";
 
 interface Props {
   defaultValues?: TResidentFormInput;
@@ -57,7 +54,6 @@ interface Props {
 
 const ResidentForm = ({ defaultValues, updated, onCreate }: Props) => {
   const isEdit = defaultValues;
-  const [isPending, startTransition] = useTransition();
 
   const form = useForm<TResidentFormInput>({
     resolver: zodResolver(ResidentInputSchema),
@@ -754,7 +750,7 @@ const ResidentForm = ({ defaultValues, updated, onCreate }: Props) => {
               type="button"
               variant="outline"
               onClick={() => form.reset()}
-              disabled={isSubmitting || isPending}
+              disabled={isSubmitting}
               className="text-rose-500"
             >
               Reset
