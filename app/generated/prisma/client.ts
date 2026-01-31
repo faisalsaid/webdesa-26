@@ -94,3 +94,23 @@ export type Family = Prisma.FamilyModel
  * 
  */
 export type Visitor = Prisma.VisitorModel
+/**
+ * Model StaffPosition
+ * 
+ */
+export type StaffPosition = Prisma.StaffPositionModel
+/**
+ * Model Staff
+ * 
+ */
+export type Staff = Prisma.StaffModel
+/**
+ * Model StaffHistory
+ * 
+ */
+export type StaffHistory = Prisma.StaffHistoryModel
+/**
+ * Model OrganizationUnit
+ * 
+ */
+export type OrganizationUnit = Prisma.OrganizationUnitModel

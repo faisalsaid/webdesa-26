@@ -141,3 +141,15 @@ export const FamilyRelationship = {
 } as const
 
 export type FamilyRelationship = (typeof FamilyRelationship)[keyof typeof FamilyRelationship]
+
+
+export const StaffLevel = {
+  TOP: 'TOP',
+  MIDDLEUP: 'MIDDLEUP',
+  MIDDLE: 'MIDDLE',
+  LOWER: 'LOWER',
+  STAFF: 'STAFF',
+  OTHER: 'OTHER'
+} as const
+
+export type StaffLevel = (typeof StaffLevel)[keyof typeof StaffLevel]

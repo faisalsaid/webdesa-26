@@ -443,6 +443,23 @@ export type EnumFamilyRelationshipNullableWithAggregatesFilter<$PrismaModel = ne
   _max?: Prisma.NestedEnumFamilyRelationshipNullableFilter<$PrismaModel>
 }
 
+export type EnumStaffLevelFilter<$PrismaModel = never> = {
+  equals?: $Enums.StaffLevel | Prisma.EnumStaffLevelFieldRefInput<$PrismaModel>
+  in?: $Enums.StaffLevel[] | Prisma.ListEnumStaffLevelFieldRefInput<$PrismaModel>
+  notIn?: $Enums.StaffLevel[] | Prisma.ListEnumStaffLevelFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumStaffLevelFilter<$PrismaModel> | $Enums.StaffLevel
+}
+
+export type EnumStaffLevelWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.StaffLevel | Prisma.EnumStaffLevelFieldRefInput<$PrismaModel>
+  in?: $Enums.StaffLevel[] | Prisma.ListEnumStaffLevelFieldRefInput<$PrismaModel>
+  notIn?: $Enums.StaffLevel[] | Prisma.ListEnumStaffLevelFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumStaffLevelWithAggregatesFilter<$PrismaModel> | $Enums.StaffLevel
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumStaffLevelFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumStaffLevelFilter<$PrismaModel>
+}
+
 export type NestedStringFilter<$PrismaModel = never> = {
   equals?: string | Prisma.StringFieldRefInput<$PrismaModel>
   in?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>
@@ -872,6 +889,23 @@ export type NestedEnumFamilyRelationshipNullableWithAggregatesFilter<$PrismaMode
   _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
   _min?: Prisma.NestedEnumFamilyRelationshipNullableFilter<$PrismaModel>
   _max?: Prisma.NestedEnumFamilyRelationshipNullableFilter<$PrismaModel>
+}
+
+export type NestedEnumStaffLevelFilter<$PrismaModel = never> = {
+  equals?: $Enums.StaffLevel | Prisma.EnumStaffLevelFieldRefInput<$PrismaModel>
+  in?: $Enums.StaffLevel[] | Prisma.ListEnumStaffLevelFieldRefInput<$PrismaModel>
+  notIn?: $Enums.StaffLevel[] | Prisma.ListEnumStaffLevelFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumStaffLevelFilter<$PrismaModel> | $Enums.StaffLevel
+}
+
+export type NestedEnumStaffLevelWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.StaffLevel | Prisma.EnumStaffLevelFieldRefInput<$PrismaModel>
+  in?: $Enums.StaffLevel[] | Prisma.ListEnumStaffLevelFieldRefInput<$PrismaModel>
+  notIn?: $Enums.StaffLevel[] | Prisma.ListEnumStaffLevelFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumStaffLevelWithAggregatesFilter<$PrismaModel> | $Enums.StaffLevel
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumStaffLevelFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumStaffLevelFilter<$PrismaModel>
 }
 
 

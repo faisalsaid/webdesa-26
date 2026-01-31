@@ -61,7 +61,11 @@ export const ModelName = {
   Hamlet: 'Hamlet',
   Resident: 'Resident',
   Family: 'Family',
-  Visitor: 'Visitor'
+  Visitor: 'Visitor',
+  StaffPosition: 'StaffPosition',
+  Staff: 'Staff',
+  StaffHistory: 'StaffHistory',
+  OrganizationUnit: 'OrganizationUnit'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -289,6 +293,65 @@ export const VisitorScalarFieldEnum = {
 } as const
 
 export type VisitorScalarFieldEnum = (typeof VisitorScalarFieldEnum)[keyof typeof VisitorScalarFieldEnum]
+
+
+export const StaffPositionScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  slug: 'slug',
+  isUnique: 'isUnique',
+  description: 'description',
+  positionType: 'positionType',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type StaffPositionScalarFieldEnum = (typeof StaffPositionScalarFieldEnum)[keyof typeof StaffPositionScalarFieldEnum]
+
+
+export const StaffScalarFieldEnum = {
+  id: 'id',
+  urlId: 'urlId',
+  name: 'name',
+  imageUrl: 'imageUrl',
+  imageKey: 'imageKey',
+  residentId: 'residentId',
+  positionTypeId: 'positionTypeId',
+  isActive: 'isActive',
+  startDate: 'startDate',
+  endDate: 'endDate',
+  parentStaffId: 'parentStaffId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type StaffScalarFieldEnum = (typeof StaffScalarFieldEnum)[keyof typeof StaffScalarFieldEnum]
+
+
+export const StaffHistoryScalarFieldEnum = {
+  id: 'id',
+  staffId: 'staffId',
+  positionTypeId: 'positionTypeId',
+  startDate: 'startDate',
+  endDate: 'endDate',
+  note: 'note',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type StaffHistoryScalarFieldEnum = (typeof StaffHistoryScalarFieldEnum)[keyof typeof StaffHistoryScalarFieldEnum]
+
+
+export const OrganizationUnitScalarFieldEnum = {
+  id: 'id',
+  positionTypeId: 'positionTypeId',
+  parentId: 'parentId',
+  staffId: 'staffId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type OrganizationUnitScalarFieldEnum = (typeof OrganizationUnitScalarFieldEnum)[keyof typeof OrganizationUnitScalarFieldEnum]
 
 
 export const SortOrder = {

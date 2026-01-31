@@ -294,8 +294,8 @@ model Resident {
   headOfFamilyFor Family? @relation("HeadOfFamily")
 
   // Relasi visitor (pendatang)
-  visitor Visitor?
-  // staffPositions Staff[]
+  visitor        Visitor?
+  staffPositions Staff[]
 
   isActive  Boolean   @default(true)
   deletedAt DateTime?
@@ -353,4 +353,81 @@ model Visitor {
 
   @@index([arrivalDate])
   @@index([departureDate])
+}
+
+// GOVERMENT SCHEMA
+
+enum StaffLevel {
+  TOP // Kepala Desa
+  MIDDLEUP // Sekretaris Desa
+  MIDDLE // Kaur / Kasi
+  LOWER // Kadus / pengawas
+  STAFF // Staf pelaksana
+  OTHER
+}
+
+model StaffPosition {
+  id                Int                @id @default(autoincrement())
+  name              String             @db.VarChar(100)
+  slug              String             @unique
+  isUnique          Boolean            @default(false)
+  description       String?            @db.Text
+  staffAssignments  Staff[]
+  organizationUnits OrganizationUnit[]
+  staffHistories    StaffHistory[]
+  positionType      StaffLevel         @default(OTHER)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Staff {
+  id               Int               @id @default(autoincrement())
+  urlId            String?           @unique @default(cuid()) // ID untuk URL
+  name             String            @db.VarChar(100)
+  imageUrl         String?           @db.VarChar(255)
+  imageKey         String?           @db.VarChar(255)
+  positionType     StaffPosition     @relation(fields: [positionTypeId], references: [id])
+  residentId       Int?
+  resident         Resident?         @relation(fields: [residentId], references: [id])
+  positionTypeId   Int
+  isActive         Boolean           @default(true)
+  startDate        DateTime
+  endDate          DateTime?
+  staffHistories   StaffHistory[]
+  organizationUnit OrganizationUnit?
+  parentStaffId    Int?
+  parentStaff      Staff?            @relation("StaffHierarchy", fields: [parentStaffId], references: [id])
+  subordinates     Staff[]           @relation("StaffHierarchy")
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model StaffHistory {
+  id             Int           @id @default(autoincrement())
+  staffMember    Staff         @relation(fields: [staffId], references: [id])
+  staffId        Int
+  positionType   StaffPosition @relation(fields: [positionTypeId], references: [id])
+  positionTypeId Int
+  startDate      DateTime
+  endDate        DateTime?
+  note           String?       @db.Text
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model OrganizationUnit {
+  id             Int                @id @default(autoincrement())
+  positionType   StaffPosition      @relation(fields: [positionTypeId], references: [id])
+  positionTypeId Int
+  parent         OrganizationUnit?  @relation("UnitHierarchy", fields: [parentId], references: [id])
+  parentId       Int?
+  children       OrganizationUnit[] @relation("UnitHierarchy")
+  staffMember    Staff?             @relation(fields: [staffId], references: [id])
+  staffId        Int?               @unique // <<< tambahkan @unique
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }

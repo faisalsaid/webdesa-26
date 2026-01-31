@@ -439,6 +439,7 @@ export type ResidentWhereInput = {
   family?: Prisma.XOR<Prisma.FamilyNullableScalarRelationFilter, Prisma.FamilyWhereInput> | null
   headOfFamilyFor?: Prisma.XOR<Prisma.FamilyNullableScalarRelationFilter, Prisma.FamilyWhereInput> | null
   visitor?: Prisma.XOR<Prisma.VisitorNullableScalarRelationFilter, Prisma.VisitorWhereInput> | null
+  staffPositions?: Prisma.StaffListRelationFilter
 }
 
 export type ResidentOrderByWithRelationInput = {
@@ -477,6 +478,7 @@ export type ResidentOrderByWithRelationInput = {
   family?: Prisma.FamilyOrderByWithRelationInput
   headOfFamilyFor?: Prisma.FamilyOrderByWithRelationInput
   visitor?: Prisma.VisitorOrderByWithRelationInput
+  staffPositions?: Prisma.StaffOrderByRelationAggregateInput
 }
 
 export type ResidentWhereUniqueInput = Prisma.AtLeast<{
@@ -518,6 +520,7 @@ export type ResidentWhereUniqueInput = Prisma.AtLeast<{
   family?: Prisma.XOR<Prisma.FamilyNullableScalarRelationFilter, Prisma.FamilyWhereInput> | null
   headOfFamilyFor?: Prisma.XOR<Prisma.FamilyNullableScalarRelationFilter, Prisma.FamilyWhereInput> | null
   visitor?: Prisma.XOR<Prisma.VisitorNullableScalarRelationFilter, Prisma.VisitorWhereInput> | null
+  staffPositions?: Prisma.StaffListRelationFilter
 }, "id" | "urlId" | "nik">
 
 export type ResidentOrderByWithAggregationInput = {
@@ -632,6 +635,7 @@ export type ResidentCreateInput = {
   family?: Prisma.FamilyCreateNestedOneWithoutMembersInput
   headOfFamilyFor?: Prisma.FamilyCreateNestedOneWithoutHeadOfFamilyInput
   visitor?: Prisma.VisitorCreateNestedOneWithoutResidentInput
+  staffPositions?: Prisma.StaffCreateNestedManyWithoutResidentInput
 }
 
 export type ResidentUncheckedCreateInput = {
@@ -669,6 +673,7 @@ export type ResidentUncheckedCreateInput = {
   updatedAt?: Date | string
   headOfFamilyFor?: Prisma.FamilyUncheckedCreateNestedOneWithoutHeadOfFamilyInput
   visitor?: Prisma.VisitorUncheckedCreateNestedOneWithoutResidentInput
+  staffPositions?: Prisma.StaffUncheckedCreateNestedManyWithoutResidentInput
 }
 
 export type ResidentUpdateInput = {
@@ -705,6 +710,7 @@ export type ResidentUpdateInput = {
   family?: Prisma.FamilyUpdateOneWithoutMembersNestedInput
   headOfFamilyFor?: Prisma.FamilyUpdateOneWithoutHeadOfFamilyNestedInput
   visitor?: Prisma.VisitorUpdateOneWithoutResidentNestedInput
+  staffPositions?: Prisma.StaffUpdateManyWithoutResidentNestedInput
 }
 
 export type ResidentUncheckedUpdateInput = {
@@ -742,6 +748,7 @@ export type ResidentUncheckedUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   headOfFamilyFor?: Prisma.FamilyUncheckedUpdateOneWithoutHeadOfFamilyNestedInput
   visitor?: Prisma.VisitorUncheckedUpdateOneWithoutResidentNestedInput
+  staffPositions?: Prisma.StaffUncheckedUpdateManyWithoutResidentNestedInput
 }
 
 export type ResidentCreateManyInput = {
@@ -1094,6 +1101,22 @@ export type ResidentUpdateOneRequiredWithoutVisitorNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.ResidentUpdateToOneWithWhereWithoutVisitorInput, Prisma.ResidentUpdateWithoutVisitorInput>, Prisma.ResidentUncheckedUpdateWithoutVisitorInput>
 }
 
+export type ResidentCreateNestedOneWithoutStaffPositionsInput = {
+  create?: Prisma.XOR<Prisma.ResidentCreateWithoutStaffPositionsInput, Prisma.ResidentUncheckedCreateWithoutStaffPositionsInput>
+  connectOrCreate?: Prisma.ResidentCreateOrConnectWithoutStaffPositionsInput
+  connect?: Prisma.ResidentWhereUniqueInput
+}
+
+export type ResidentUpdateOneWithoutStaffPositionsNestedInput = {
+  create?: Prisma.XOR<Prisma.ResidentCreateWithoutStaffPositionsInput, Prisma.ResidentUncheckedCreateWithoutStaffPositionsInput>
+  connectOrCreate?: Prisma.ResidentCreateOrConnectWithoutStaffPositionsInput
+  upsert?: Prisma.ResidentUpsertWithoutStaffPositionsInput
+  disconnect?: Prisma.ResidentWhereInput | boolean
+  delete?: Prisma.ResidentWhereInput | boolean
+  connect?: Prisma.ResidentWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ResidentUpdateToOneWithWhereWithoutStaffPositionsInput, Prisma.ResidentUpdateWithoutStaffPositionsInput>, Prisma.ResidentUncheckedUpdateWithoutStaffPositionsInput>
+}
+
 export type ResidentCreateWithoutHeadOfFamilyForInput = {
   urlId?: string
   nik: string
@@ -1127,6 +1150,7 @@ export type ResidentCreateWithoutHeadOfFamilyForInput = {
   updatedAt?: Date | string
   family?: Prisma.FamilyCreateNestedOneWithoutMembersInput
   visitor?: Prisma.VisitorCreateNestedOneWithoutResidentInput
+  staffPositions?: Prisma.StaffCreateNestedManyWithoutResidentInput
 }
 
 export type ResidentUncheckedCreateWithoutHeadOfFamilyForInput = {
@@ -1163,6 +1187,7 @@ export type ResidentUncheckedCreateWithoutHeadOfFamilyForInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   visitor?: Prisma.VisitorUncheckedCreateNestedOneWithoutResidentInput
+  staffPositions?: Prisma.StaffUncheckedCreateNestedManyWithoutResidentInput
 }
 
 export type ResidentCreateOrConnectWithoutHeadOfFamilyForInput = {
@@ -1203,6 +1228,7 @@ export type ResidentCreateWithoutFamilyInput = {
   updatedAt?: Date | string
   headOfFamilyFor?: Prisma.FamilyCreateNestedOneWithoutHeadOfFamilyInput
   visitor?: Prisma.VisitorCreateNestedOneWithoutResidentInput
+  staffPositions?: Prisma.StaffCreateNestedManyWithoutResidentInput
 }
 
 export type ResidentUncheckedCreateWithoutFamilyInput = {
@@ -1239,6 +1265,7 @@ export type ResidentUncheckedCreateWithoutFamilyInput = {
   updatedAt?: Date | string
   headOfFamilyFor?: Prisma.FamilyUncheckedCreateNestedOneWithoutHeadOfFamilyInput
   visitor?: Prisma.VisitorUncheckedCreateNestedOneWithoutResidentInput
+  staffPositions?: Prisma.StaffUncheckedCreateNestedManyWithoutResidentInput
 }
 
 export type ResidentCreateOrConnectWithoutFamilyInput = {
@@ -1295,6 +1322,7 @@ export type ResidentUpdateWithoutHeadOfFamilyForInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   family?: Prisma.FamilyUpdateOneWithoutMembersNestedInput
   visitor?: Prisma.VisitorUpdateOneWithoutResidentNestedInput
+  staffPositions?: Prisma.StaffUpdateManyWithoutResidentNestedInput
 }
 
 export type ResidentUncheckedUpdateWithoutHeadOfFamilyForInput = {
@@ -1331,6 +1359,7 @@ export type ResidentUncheckedUpdateWithoutHeadOfFamilyForInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   visitor?: Prisma.VisitorUncheckedUpdateOneWithoutResidentNestedInput
+  staffPositions?: Prisma.StaffUncheckedUpdateManyWithoutResidentNestedInput
 }
 
 export type ResidentUpsertWithWhereUniqueWithoutFamilyInput = {
@@ -1420,6 +1449,7 @@ export type ResidentCreateWithoutVisitorInput = {
   updatedAt?: Date | string
   family?: Prisma.FamilyCreateNestedOneWithoutMembersInput
   headOfFamilyFor?: Prisma.FamilyCreateNestedOneWithoutHeadOfFamilyInput
+  staffPositions?: Prisma.StaffCreateNestedManyWithoutResidentInput
 }
 
 export type ResidentUncheckedCreateWithoutVisitorInput = {
@@ -1456,6 +1486,7 @@ export type ResidentUncheckedCreateWithoutVisitorInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   headOfFamilyFor?: Prisma.FamilyUncheckedCreateNestedOneWithoutHeadOfFamilyInput
+  staffPositions?: Prisma.StaffUncheckedCreateNestedManyWithoutResidentInput
 }
 
 export type ResidentCreateOrConnectWithoutVisitorInput = {
@@ -1507,6 +1538,7 @@ export type ResidentUpdateWithoutVisitorInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   family?: Prisma.FamilyUpdateOneWithoutMembersNestedInput
   headOfFamilyFor?: Prisma.FamilyUpdateOneWithoutHeadOfFamilyNestedInput
+  staffPositions?: Prisma.StaffUpdateManyWithoutResidentNestedInput
 }
 
 export type ResidentUncheckedUpdateWithoutVisitorInput = {
@@ -1543,6 +1575,169 @@ export type ResidentUncheckedUpdateWithoutVisitorInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   headOfFamilyFor?: Prisma.FamilyUncheckedUpdateOneWithoutHeadOfFamilyNestedInput
+  staffPositions?: Prisma.StaffUncheckedUpdateManyWithoutResidentNestedInput
+}
+
+export type ResidentCreateWithoutStaffPositionsInput = {
+  urlId?: string
+  nik: string
+  fullName: string
+  imageUrl?: string | null
+  imageKey?: string | null
+  gender: $Enums.Gender
+  birthPlace?: string | null
+  birthDate?: Date | string | null
+  religion?: $Enums.Religion | null
+  education?: $Enums.Education | null
+  occupation?: $Enums.Occupation | null
+  maritalStatus?: $Enums.MaritalStatus | null
+  bloodType?: $Enums.BloodType | null
+  disabilityType?: $Enums.DisabilityType | null
+  citizenship?: $Enums.Citizenship | null
+  passportNumber?: string | null
+  ethnicity?: string | null
+  nationality?: string | null
+  address?: string | null
+  dusun?: string | null
+  rw?: string | null
+  rt?: string | null
+  phone?: string | null
+  email?: string | null
+  populationStatus?: $Enums.PopulationStatus
+  familyRelationship?: $Enums.FamilyRelationship | null
+  isActive?: boolean
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  family?: Prisma.FamilyCreateNestedOneWithoutMembersInput
+  headOfFamilyFor?: Prisma.FamilyCreateNestedOneWithoutHeadOfFamilyInput
+  visitor?: Prisma.VisitorCreateNestedOneWithoutResidentInput
+}
+
+export type ResidentUncheckedCreateWithoutStaffPositionsInput = {
+  id?: number
+  urlId?: string
+  nik: string
+  fullName: string
+  imageUrl?: string | null
+  imageKey?: string | null
+  gender: $Enums.Gender
+  birthPlace?: string | null
+  birthDate?: Date | string | null
+  religion?: $Enums.Religion | null
+  education?: $Enums.Education | null
+  occupation?: $Enums.Occupation | null
+  maritalStatus?: $Enums.MaritalStatus | null
+  bloodType?: $Enums.BloodType | null
+  disabilityType?: $Enums.DisabilityType | null
+  citizenship?: $Enums.Citizenship | null
+  passportNumber?: string | null
+  ethnicity?: string | null
+  nationality?: string | null
+  address?: string | null
+  dusun?: string | null
+  rw?: string | null
+  rt?: string | null
+  phone?: string | null
+  email?: string | null
+  populationStatus?: $Enums.PopulationStatus
+  familyRelationship?: $Enums.FamilyRelationship | null
+  familyId?: number | null
+  isActive?: boolean
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  headOfFamilyFor?: Prisma.FamilyUncheckedCreateNestedOneWithoutHeadOfFamilyInput
+  visitor?: Prisma.VisitorUncheckedCreateNestedOneWithoutResidentInput
+}
+
+export type ResidentCreateOrConnectWithoutStaffPositionsInput = {
+  where: Prisma.ResidentWhereUniqueInput
+  create: Prisma.XOR<Prisma.ResidentCreateWithoutStaffPositionsInput, Prisma.ResidentUncheckedCreateWithoutStaffPositionsInput>
+}
+
+export type ResidentUpsertWithoutStaffPositionsInput = {
+  update: Prisma.XOR<Prisma.ResidentUpdateWithoutStaffPositionsInput, Prisma.ResidentUncheckedUpdateWithoutStaffPositionsInput>
+  create: Prisma.XOR<Prisma.ResidentCreateWithoutStaffPositionsInput, Prisma.ResidentUncheckedCreateWithoutStaffPositionsInput>
+  where?: Prisma.ResidentWhereInput
+}
+
+export type ResidentUpdateToOneWithWhereWithoutStaffPositionsInput = {
+  where?: Prisma.ResidentWhereInput
+  data: Prisma.XOR<Prisma.ResidentUpdateWithoutStaffPositionsInput, Prisma.ResidentUncheckedUpdateWithoutStaffPositionsInput>
+}
+
+export type ResidentUpdateWithoutStaffPositionsInput = {
+  urlId?: Prisma.StringFieldUpdateOperationsInput | string
+  nik?: Prisma.StringFieldUpdateOperationsInput | string
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  gender?: Prisma.EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+  birthPlace?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  birthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  religion?: Prisma.NullableEnumReligionFieldUpdateOperationsInput | $Enums.Religion | null
+  education?: Prisma.NullableEnumEducationFieldUpdateOperationsInput | $Enums.Education | null
+  occupation?: Prisma.NullableEnumOccupationFieldUpdateOperationsInput | $Enums.Occupation | null
+  maritalStatus?: Prisma.NullableEnumMaritalStatusFieldUpdateOperationsInput | $Enums.MaritalStatus | null
+  bloodType?: Prisma.NullableEnumBloodTypeFieldUpdateOperationsInput | $Enums.BloodType | null
+  disabilityType?: Prisma.NullableEnumDisabilityTypeFieldUpdateOperationsInput | $Enums.DisabilityType | null
+  citizenship?: Prisma.NullableEnumCitizenshipFieldUpdateOperationsInput | $Enums.Citizenship | null
+  passportNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethnicity?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nationality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dusun?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rw?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  populationStatus?: Prisma.EnumPopulationStatusFieldUpdateOperationsInput | $Enums.PopulationStatus
+  familyRelationship?: Prisma.NullableEnumFamilyRelationshipFieldUpdateOperationsInput | $Enums.FamilyRelationship | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  family?: Prisma.FamilyUpdateOneWithoutMembersNestedInput
+  headOfFamilyFor?: Prisma.FamilyUpdateOneWithoutHeadOfFamilyNestedInput
+  visitor?: Prisma.VisitorUpdateOneWithoutResidentNestedInput
+}
+
+export type ResidentUncheckedUpdateWithoutStaffPositionsInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  urlId?: Prisma.StringFieldUpdateOperationsInput | string
+  nik?: Prisma.StringFieldUpdateOperationsInput | string
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  gender?: Prisma.EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+  birthPlace?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  birthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  religion?: Prisma.NullableEnumReligionFieldUpdateOperationsInput | $Enums.Religion | null
+  education?: Prisma.NullableEnumEducationFieldUpdateOperationsInput | $Enums.Education | null
+  occupation?: Prisma.NullableEnumOccupationFieldUpdateOperationsInput | $Enums.Occupation | null
+  maritalStatus?: Prisma.NullableEnumMaritalStatusFieldUpdateOperationsInput | $Enums.MaritalStatus | null
+  bloodType?: Prisma.NullableEnumBloodTypeFieldUpdateOperationsInput | $Enums.BloodType | null
+  disabilityType?: Prisma.NullableEnumDisabilityTypeFieldUpdateOperationsInput | $Enums.DisabilityType | null
+  citizenship?: Prisma.NullableEnumCitizenshipFieldUpdateOperationsInput | $Enums.Citizenship | null
+  passportNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethnicity?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nationality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dusun?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rw?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  populationStatus?: Prisma.EnumPopulationStatusFieldUpdateOperationsInput | $Enums.PopulationStatus
+  familyRelationship?: Prisma.NullableEnumFamilyRelationshipFieldUpdateOperationsInput | $Enums.FamilyRelationship | null
+  familyId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  headOfFamilyFor?: Prisma.FamilyUncheckedUpdateOneWithoutHeadOfFamilyNestedInput
+  visitor?: Prisma.VisitorUncheckedUpdateOneWithoutResidentNestedInput
 }
 
 export type ResidentCreateManyFamilyInput = {
@@ -1612,6 +1807,7 @@ export type ResidentUpdateWithoutFamilyInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   headOfFamilyFor?: Prisma.FamilyUpdateOneWithoutHeadOfFamilyNestedInput
   visitor?: Prisma.VisitorUpdateOneWithoutResidentNestedInput
+  staffPositions?: Prisma.StaffUpdateManyWithoutResidentNestedInput
 }
 
 export type ResidentUncheckedUpdateWithoutFamilyInput = {
@@ -1648,6 +1844,7 @@ export type ResidentUncheckedUpdateWithoutFamilyInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   headOfFamilyFor?: Prisma.FamilyUncheckedUpdateOneWithoutHeadOfFamilyNestedInput
   visitor?: Prisma.VisitorUncheckedUpdateOneWithoutResidentNestedInput
+  staffPositions?: Prisma.StaffUncheckedUpdateManyWithoutResidentNestedInput
 }
 
 export type ResidentUncheckedUpdateManyWithoutFamilyInput = {
@@ -1684,6 +1881,35 @@ export type ResidentUncheckedUpdateManyWithoutFamilyInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
+
+/**
+ * Count Type ResidentCountOutputType
+ */
+
+export type ResidentCountOutputType = {
+  staffPositions: number
+}
+
+export type ResidentCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  staffPositions?: boolean | ResidentCountOutputTypeCountStaffPositionsArgs
+}
+
+/**
+ * ResidentCountOutputType without action
+ */
+export type ResidentCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ResidentCountOutputType
+   */
+  select?: Prisma.ResidentCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * ResidentCountOutputType without action
+ */
+export type ResidentCountOutputTypeCountStaffPositionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.StaffWhereInput
+}
 
 
 export type ResidentSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -1722,6 +1948,8 @@ export type ResidentSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   family?: boolean | Prisma.Resident$familyArgs<ExtArgs>
   headOfFamilyFor?: boolean | Prisma.Resident$headOfFamilyForArgs<ExtArgs>
   visitor?: boolean | Prisma.Resident$visitorArgs<ExtArgs>
+  staffPositions?: boolean | Prisma.Resident$staffPositionsArgs<ExtArgs>
+  _count?: boolean | Prisma.ResidentCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["resident"]>
 
 export type ResidentSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -1836,6 +2064,8 @@ export type ResidentInclude<ExtArgs extends runtime.Types.Extensions.InternalArg
   family?: boolean | Prisma.Resident$familyArgs<ExtArgs>
   headOfFamilyFor?: boolean | Prisma.Resident$headOfFamilyForArgs<ExtArgs>
   visitor?: boolean | Prisma.Resident$visitorArgs<ExtArgs>
+  staffPositions?: boolean | Prisma.Resident$staffPositionsArgs<ExtArgs>
+  _count?: boolean | Prisma.ResidentCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type ResidentIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   family?: boolean | Prisma.Resident$familyArgs<ExtArgs>
@@ -1850,6 +2080,7 @@ export type $ResidentPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     family: Prisma.$FamilyPayload<ExtArgs> | null
     headOfFamilyFor: Prisma.$FamilyPayload<ExtArgs> | null
     visitor: Prisma.$VisitorPayload<ExtArgs> | null
+    staffPositions: Prisma.$StaffPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -2281,6 +2512,7 @@ export interface Prisma__ResidentClient<T, Null = never, ExtArgs extends runtime
   family<T extends Prisma.Resident$familyArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Resident$familyArgs<ExtArgs>>): Prisma.Prisma__FamilyClient<runtime.Types.Result.GetResult<Prisma.$FamilyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   headOfFamilyFor<T extends Prisma.Resident$headOfFamilyForArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Resident$headOfFamilyForArgs<ExtArgs>>): Prisma.Prisma__FamilyClient<runtime.Types.Result.GetResult<Prisma.$FamilyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   visitor<T extends Prisma.Resident$visitorArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Resident$visitorArgs<ExtArgs>>): Prisma.Prisma__VisitorClient<runtime.Types.Result.GetResult<Prisma.$VisitorPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  staffPositions<T extends Prisma.Resident$staffPositionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Resident$staffPositionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$StaffPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2792,6 +3024,30 @@ export type Resident$visitorArgs<ExtArgs extends runtime.Types.Extensions.Intern
    */
   include?: Prisma.VisitorInclude<ExtArgs> | null
   where?: Prisma.VisitorWhereInput
+}
+
+/**
+ * Resident.staffPositions
+ */
+export type Resident$staffPositionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Staff
+   */
+  select?: Prisma.StaffSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Staff
+   */
+  omit?: Prisma.StaffOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.StaffInclude<ExtArgs> | null
+  where?: Prisma.StaffWhereInput
+  orderBy?: Prisma.StaffOrderByWithRelationInput | Prisma.StaffOrderByWithRelationInput[]
+  cursor?: Prisma.StaffWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.StaffScalarFieldEnum | Prisma.StaffScalarFieldEnum[]
 }
 
 /**
