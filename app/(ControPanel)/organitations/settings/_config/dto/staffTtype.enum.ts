@@ -2,11 +2,11 @@ import { StaffLevel } from "@/app/generated/prisma/enums";
 import { createEnumHelpers } from "@/lib/helper/createEnumHelper";
 
 export const StaffLevelLabel: Record<StaffLevel, string> = {
-  TOP: "Tertinggi",
-  MIDDLEUP: "Menengah atas",
-  MIDDLE: "Menengah",
-  LOWER: "Bawah",
-  STAFF: "Dasar",
+  TOP: "Kepala Desa",
+  MIDDLEUP: "Sekretaris Desa",
+  MIDDLE: "Kepala Urusan / Kepala Seksi",
+  LOWER: "Kepala Dusun",
+  STAFF: "Perangkat Desa",
   OTHER: "Lainnya",
 };
 

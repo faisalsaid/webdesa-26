@@ -23,6 +23,7 @@ import {
 import { toast } from "sonner";
 import { createStaffPosititon } from "../_config/actions/createStaffPosititon.actions";
 import EmptyComp from "@/components/EmptyComp";
+import { updateStaffPosition } from "../_config/actions/updateStaffPosition.action";
 
 interface Porps {
   staffPositions: TStaffPosition[] | undefined;
@@ -32,23 +33,52 @@ const StaffPositionList = ({ staffPositions }: Porps) => {
   const curentUser = useUserStore((state) => state.user);
   const [openDialog, setOpenDialog] = useState<boolean>(false);
   const [pending, starTransition] = useTransition();
+  const [positionToUpdate, setPositionToUpdate] =
+    useState<TStaffTypeFormInput | null>(null);
+
+  const [updatePositionDialog, setUpdatePositionDialog] =
+    useState<boolean>(false);
 
   const onSubmit = (payload: TStaffTypeFormInput) => {
-    const toastId = toast.loading("Menambah jenis jabatan");
+    const isEdit = !!payload.id;
+    console.log(isEdit);
+
+    const toastId = toast.loading(
+      isEdit ? "Ubah data jenis jabatan..." : "Menambah jenis jabatan...",
+    );
 
     starTransition(async () => {
-      const res = await createStaffPosititon(payload);
-      if (!res.success) {
-        toast.error(res.message ? res.message : "Gagal menambah jabatan", {
+      if (isEdit) {
+        const res = await updateStaffPosition(payload);
+        if (!res.success) {
+          toast.error(res.message ? res.message : "Gagal perbarui jabatan", {
+            id: toastId,
+          });
+          return;
+        }
+        toast.success(res.message ? res.message : "Berhasil perbarui jabatan", {
           id: toastId,
         });
-        return;
+        setUpdatePositionDialog(false);
+      } else {
+        const res = await createStaffPosititon(payload);
+        if (!res.success) {
+          toast.error(res.message ? res.message : "Gagal menambah jabatan", {
+            id: toastId,
+          });
+          return;
+        }
+        toast.success(res.message ? res.message : "Berhasil menambah jabatan", {
+          id: toastId,
+        });
+        setOpenDialog(false);
       }
-      toast.success(res.message ? res.message : "Berhasil menambah jabatan", {
-        id: toastId,
-      });
-      setOpenDialog(false);
     });
+  };
+
+  const onUpdate = (initData: TStaffTypeFormInput) => {
+    setPositionToUpdate(initData);
+    setUpdatePositionDialog(true);
   };
 
   return (
@@ -90,10 +120,33 @@ const StaffPositionList = ({ staffPositions }: Porps) => {
       ) : (
         <div className="space-y-2">
           {staffPositions?.map((staffPosititon) => (
-            <StaffTypeListCard key={staffPosititon.id} />
+            <StaffTypeListCard
+              key={staffPosititon.id}
+              position={staffPosititon}
+              onUpdate={onUpdate}
+            />
           ))}
         </div>
       )}
+
+      <div>
+        <Dialog
+          open={updatePositionDialog}
+          onOpenChange={setUpdatePositionDialog}
+        >
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>Ubah data jabatan</DialogTitle>
+              <DialogDescription></DialogDescription>
+            </DialogHeader>
+            <Separator />
+            <StaffTypeForm
+              getSubmit={onSubmit}
+              initialData={positionToUpdate}
+            />
+          </DialogContent>
+        </Dialog>
+      </div>
     </ContentCard>
   );
 };

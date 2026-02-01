@@ -4,7 +4,6 @@ import { getAllStaffPosition } from "./_config/actions/getAllStaffPosition.actio
 
 const OrganitationsSettings = async () => {
   const staffPositionRes = await getAllStaffPosition();
-  console.log(staffPositionRes);
 
   if (!staffPositionRes.success) {
     return (

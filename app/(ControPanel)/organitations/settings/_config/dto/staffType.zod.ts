@@ -12,7 +12,7 @@ export const StaffPositionFormInput = z.object({
       (val) => val.trim().length > 0,
       "Nama jabatan tidak boleh hanya spasi",
     ),
-  description: z.string().optional(),
+  description: z.string().optional().nullable(),
   isUnique: z.boolean(),
   positionType: z.enum(StaffLevel),
 

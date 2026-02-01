@@ -30,7 +30,7 @@ import { Button } from "@/components/ui/button";
 import { Upload } from "lucide-react";
 
 interface Props {
-  initialData?: TStaffTypeFormInput;
+  initialData?: TStaffTypeFormInput | null;
   getSubmit?: (payload: TStaffTypeFormInput) => void;
   onSetModal?: (open: boolean) => void;
 }
