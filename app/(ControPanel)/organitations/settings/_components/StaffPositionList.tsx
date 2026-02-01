@@ -24,6 +24,8 @@ import { toast } from "sonner";
 import { createStaffPosititon } from "../_config/actions/createStaffPosititon.actions";
 import EmptyComp from "@/components/EmptyComp";
 import { updateStaffPosition } from "../_config/actions/updateStaffPosition.action";
+import ConfirmDialog from "@/components/ConfirmDialog";
+import { deleteStaffPosition } from "../_config/actions/deleteStaffPosition.action";
 
 interface Porps {
   staffPositions: TStaffPosition[] | undefined;
@@ -32,6 +34,8 @@ interface Porps {
 const StaffPositionList = ({ staffPositions }: Porps) => {
   const curentUser = useUserStore((state) => state.user);
   const [dialogOpen, setDialogOpen] = useState(false);
+  const [confrimOpen, setConfirmOpen] = useState(false);
+  const [positionToDelete, setPositionToDelete] = useState<number | null>(null);
   const [positionToUpdate, setPositionToUpdate] =
     useState<TStaffTypeFormInput | null>(null);
 
@@ -70,6 +74,30 @@ const StaffPositionList = ({ staffPositions }: Porps) => {
     setDialogOpen(true);
   };
 
+  const onDelete = (id: number) => {
+    setPositionToDelete(id);
+    setConfirmOpen(true);
+  };
+
+  const handleDelete = async () => {
+    if (!positionToDelete) {
+      toast.error("Silahkan pilih jabatan yang ingin dihapus");
+      return;
+    }
+    const toastId = toast.loading("Menghapus jabatan...");
+
+    const res = await deleteStaffPosition(positionToDelete);
+
+    if (!res.success) {
+      toast.error(res.message ?? "Gagal perbarui jabatan", { id: toastId });
+      return;
+    }
+
+    toast.success(res.message ?? "Berhasil menambah jabatan", {
+      id: toastId,
+    });
+  };
+
   return (
     <ContentCard className="space-y-4 h-fit">
       <div className="flex ga4 items-center justify-between">
@@ -105,6 +133,7 @@ const StaffPositionList = ({ staffPositions }: Porps) => {
               key={staffPosititon.id}
               position={staffPosititon}
               onUpdate={onUpdate}
+              onDelete={onDelete}
             />
           ))}
         </div>
@@ -131,6 +160,12 @@ const StaffPositionList = ({ staffPositions }: Porps) => {
             />
           </DialogContent>
         </Dialog>
+
+        <ConfirmDialog
+          open={confrimOpen}
+          onOpenChange={setConfirmOpen}
+          onConfirm={handleDelete}
+        />
       </div>
     </ContentCard>
   );

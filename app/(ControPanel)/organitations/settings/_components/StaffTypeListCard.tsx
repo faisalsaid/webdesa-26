@@ -1,8 +1,10 @@
 "use client";
 
 import {
+  Edit2,
   EllipsisVertical,
   MoreHorizontalIcon,
+  Trash2,
   User,
   Users,
 } from "lucide-react";
@@ -27,8 +29,9 @@ import { Button } from "@/components/ui/button";
 interface Props {
   position: TStaffPosition;
   onUpdate: (payload: TStaffTypeFormInput) => void;
+  onDelete: (id: number) => void;
 }
-const StaffTypeListCard = ({ position, onUpdate }: Props) => {
+const StaffTypeListCard = ({ position, onUpdate, onDelete }: Props) => {
   const curentUser = useUserStore((state) => state.user);
 
   return (
@@ -93,9 +96,16 @@ const StaffTypeListCard = ({ position, onUpdate }: Props) => {
                   className="w-full flex items-center justify-center"
                   onClick={() => onUpdate(position)}
                 >
-                  Edit
+                  <Edit2 />
+                  <span>Edit</span>
                 </DropdownMenuItem>
-                <DropdownMenuItem></DropdownMenuItem>
+                <DropdownMenuItem
+                  className="w-full flex items-center justify-center text-rose-500 "
+                  onClick={() => onDelete(position.id)}
+                >
+                  <Trash2 className="text-rose-500" />
+                  <span>Hapus</span>
+                </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           </div>
