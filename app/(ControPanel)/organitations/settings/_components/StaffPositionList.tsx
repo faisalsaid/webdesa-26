@@ -96,6 +96,7 @@ const StaffPositionList = ({ staffPositions }: Porps) => {
     toast.success(res.message ?? "Berhasil menambah jabatan", {
       id: toastId,
     });
+    setConfirmOpen(false);
   };
 
   return (

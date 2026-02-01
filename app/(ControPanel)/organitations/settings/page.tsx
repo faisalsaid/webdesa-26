@@ -1,9 +1,11 @@
 import { MessageCircleWarning } from "lucide-react";
 import OrganitationsSettingsComp from "./_components/OrganitationsSettingsComp";
 import { getAllStaffPosition } from "./_config/actions/getAllStaffPosition.action";
+import { getStaffPositionToStaffFormOptions } from "./_config/actions/getStaffPositionToStaffFormOptions.actions";
 
 const OrganitationsSettings = async () => {
   const staffPositionRes = await getAllStaffPosition();
+  const positionOptions = await getStaffPositionToStaffFormOptions();
 
   if (!staffPositionRes.success) {
     return (
@@ -19,6 +21,7 @@ const OrganitationsSettings = async () => {
   return (
     <OrganitationsSettingsComp
       staffPositions={staffPositionRes.staffPositions}
+      positionOptions={positionOptions}
     />
   );
 };

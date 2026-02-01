@@ -14,8 +14,8 @@ import {
   Images,
   ChartColumnBig,
   BadgeAlert,
-} from 'lucide-react';
-import type { LucideIcon } from 'lucide-react';
+} from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 
 /**
  * Interface untuk menu item — supaya TypeScript tahu strukturnya.
@@ -34,115 +34,115 @@ export interface MenuItem {
  */
 const allMenuList: MenuItem[] = [
   {
-    title: 'Dashboard',
-    url: '/dashboard',
+    title: "Dashboard",
+    url: "/dashboard",
     icon: LayoutDashboard,
   },
   {
-    title: 'Profile Desa',
-    url: '/village',
+    title: "Profile Desa",
+    url: "/village",
     icon: ClipboardPenLine,
-    roles: ['ADMIN', 'OPERATOR'],
+    roles: ["ADMIN", "OPERATOR"],
   },
   {
-    title: 'Penduduk',
-    url: '/#',
+    title: "Penduduk",
+    url: "/#",
     icon: UsersRound,
-    roles: ['ADMIN', 'OPERATOR'],
+    roles: ["ADMIN", "OPERATOR"],
     sub: [
       {
-        title: 'Keluarga',
-        url: '/families',
+        title: "Keluarga",
+        url: "/families",
         icon: FileUser,
       },
       {
-        title: 'Penduduk',
-        url: '/residents',
+        title: "Penduduk",
+        url: "/residents",
         icon: UsersRound,
       },
     ],
   },
   {
-    title: 'Organisasi',
-    url: '/#',
+    title: "Organisasi",
+    url: "/#",
     icon: Route,
-    roles: ['ADMIN', 'OPERATOR'],
+    roles: ["ADMIN", "OPERATOR"],
     sub: [
       {
-        title: 'Perangkat',
-        url: '/organitations/staff',
+        title: "Perangkat",
+        url: "/organitations",
         icon: Briefcase,
       },
       {
-        title: 'Pengaturan',
-        url: '/organitations/settings',
+        title: "Pengaturan",
+        url: "/organitations/settings",
         icon: Settings2,
       },
     ],
   },
   {
-    title: 'APBDESA',
-    url: '/#',
+    title: "APBDESA",
+    url: "/#",
     icon: CircleDollarSign,
-    roles: ['ADMIN', 'OPERATOR'],
+    roles: ["ADMIN", "OPERATOR"],
     sub: [
       {
-        title: 'Dashboard',
-        url: '/apbdesa',
+        title: "Dashboard",
+        url: "/apbdesa",
         icon: CircleDollarSign,
       },
       {
-        title: 'Pendapatan',
-        url: '/apbdesa/revenue',
+        title: "Pendapatan",
+        url: "/apbdesa/revenue",
         icon: Wallet2,
       },
       {
-        title: 'Belanja',
-        url: '/apbdesa/expenses',
+        title: "Belanja",
+        url: "/apbdesa/expenses",
         icon: Wallet2,
       },
       {
-        title: 'Pembiayaan',
-        url: '/apbdesa/financing',
+        title: "Pembiayaan",
+        url: "/apbdesa/financing",
         icon: Wallet2,
       },
     ],
   },
   {
-    title: 'IDM',
-    url: '/idm',
+    title: "IDM",
+    url: "/idm",
     icon: ChartColumnBig,
-    roles: ['ADMIN', 'OPERATOR'], // hanya admin & operator
+    roles: ["ADMIN", "OPERATOR"], // hanya admin & operator
   },
   {
-    title: 'pengaduan',
-    url: '/complaints',
+    title: "pengaduan",
+    url: "/complaints",
     icon: BadgeAlert,
-    roles: ['ADMIN', 'OPERATOR'], // hanya admin & operator
+    roles: ["ADMIN", "OPERATOR"], // hanya admin & operator
   },
   {
-    title: 'Article',
-    url: '/article',
+    title: "Article",
+    url: "/article",
     icon: Newspaper,
-    roles: ['ADMIN', 'OPERATOR', 'EDITOR'], // hanya admin & operator
+    roles: ["ADMIN", "OPERATOR", "EDITOR"], // hanya admin & operator
   },
   {
-    title: 'Galeri',
-    url: '/assets',
+    title: "Galeri",
+    url: "/assets",
     icon: Images,
-    roles: ['ADMIN', 'OPERATOR', 'EDITOR'],
+    roles: ["ADMIN", "OPERATOR", "EDITOR"],
   },
   {
-    title: 'Users',
-    url: '/users',
+    title: "Users",
+    url: "/users",
     icon: Users,
-    roles: ['ADMIN', 'OPERATOR'], // hanya admin & operator
+    roles: ["ADMIN", "OPERATOR"], // hanya admin & operator
   },
   {
-    title: 'Settings',
-    url: '/settings',
+    title: "Settings",
+    url: "/settings",
     icon: Settings,
-    roles: ['ADMIN'], // hanya admin
+    roles: ["ADMIN"], // hanya admin
   },
 ];
 
