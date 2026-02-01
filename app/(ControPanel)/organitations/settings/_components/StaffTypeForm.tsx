@@ -3,7 +3,10 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { StaffPositionFormInput } from "../_config/dto/staffType.zod";
-import { TStaffTypeFormInput } from "../_config/dto/staffType.type";
+import {
+  TStaffPosition,
+  TStaffTypeFormInput,
+} from "../_config/dto/staffType.type";
 
 import {
   Form,
@@ -23,20 +26,44 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
-import { staffLevelOptions } from "../_config/dto/staffTtype.enum";
+import {
+  StaffLevelEnum,
+  staffLevelLabelMap,
+  staffLevelOptions,
+} from "../_config/dto/staffTtype.enum";
 import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
 import { Button } from "@/components/ui/button";
 import { Upload } from "lucide-react";
+import { StaffLevel } from "@/app/generated/prisma/enums";
 
 interface Props {
   initialData?: TStaffTypeFormInput | null;
+  positionType: TStaffPosition[] | undefined;
   getSubmit?: (payload: TStaffTypeFormInput) => void;
   onSetModal?: (open: boolean) => void;
 }
 
-const StaffTypeForm = ({ initialData, getSubmit }: Props) => {
+const StaffTypeForm = ({ initialData, getSubmit, positionType }: Props) => {
   const isUpdate = !!initialData;
+
+  const usedTop = (positionType ?? []).some(
+    (pos) => pos.positionType === "TOP",
+  );
+
+  const availablePositionTypes = Object.entries(staffLevelLabelMap).filter(
+    ([value]) => {
+      const v = value as StaffLevel;
+
+      // Saat UPDATE, jangan menghilangkan posisi asal
+      if (initialData?.positionType === v) return true;
+
+      // Hilangkan TOP jika sudah ada jabatan TOP
+      if (v === "TOP" && usedTop) return false;
+
+      return true;
+    },
+  );
 
   const form = useForm({
     resolver: zodResolver(StaffPositionFormInput),
@@ -88,9 +115,9 @@ const StaffTypeForm = ({ initialData, getSubmit }: Props) => {
                     <SelectValue placeholder="Pilih tipe posisi" />
                   </SelectTrigger>
                   <SelectContent>
-                    {staffLevelOptions.map((level) => (
-                      <SelectItem key={level.value} value={level.value}>
-                        {level.label}
+                    {availablePositionTypes.map(([value, label]) => (
+                      <SelectItem key={value} value={value}>
+                        {label}
                       </SelectItem>
                     ))}
                   </SelectContent>

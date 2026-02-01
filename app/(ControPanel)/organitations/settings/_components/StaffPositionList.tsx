@@ -127,6 +127,7 @@ const StaffPositionList = ({ staffPositions }: Porps) => {
             <StaffTypeForm
               getSubmit={onSubmit}
               initialData={positionToUpdate ?? undefined}
+              positionType={staffPositions}
             />
           </DialogContent>
         </Dialog>
