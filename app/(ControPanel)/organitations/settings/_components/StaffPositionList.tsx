@@ -31,81 +31,62 @@ interface Porps {
 
 const StaffPositionList = ({ staffPositions }: Porps) => {
   const curentUser = useUserStore((state) => state.user);
-  const [openDialog, setOpenDialog] = useState<boolean>(false);
-  const [pending, starTransition] = useTransition();
+  const [dialogOpen, setDialogOpen] = useState(false);
   const [positionToUpdate, setPositionToUpdate] =
     useState<TStaffTypeFormInput | null>(null);
 
-  const [updatePositionDialog, setUpdatePositionDialog] =
-    useState<boolean>(false);
-
-  const onSubmit = (payload: TStaffTypeFormInput) => {
+  const onSubmit = async (payload: TStaffTypeFormInput) => {
     const isEdit = !!payload.id;
-    console.log(isEdit);
 
     const toastId = toast.loading(
       isEdit ? "Ubah data jenis jabatan..." : "Menambah jenis jabatan...",
     );
 
-    starTransition(async () => {
-      if (isEdit) {
-        const res = await updateStaffPosition(payload);
-        if (!res.success) {
-          toast.error(res.message ? res.message : "Gagal perbarui jabatan", {
-            id: toastId,
-          });
-          return;
-        }
-        toast.success(res.message ? res.message : "Berhasil perbarui jabatan", {
-          id: toastId,
-        });
-        setUpdatePositionDialog(false);
-      } else {
-        const res = await createStaffPosititon(payload);
-        if (!res.success) {
-          toast.error(res.message ? res.message : "Gagal menambah jabatan", {
-            id: toastId,
-          });
-          return;
-        }
-        toast.success(res.message ? res.message : "Berhasil menambah jabatan", {
-          id: toastId,
-        });
-        setOpenDialog(false);
+    if (isEdit) {
+      const res = await updateStaffPosition(payload);
+      if (!res.success) {
+        toast.error(res.message ?? "Gagal perbarui jabatan", { id: toastId });
+        return;
       }
-    });
+      toast.success(res.message ?? "Berhasil perbarui jabatan", {
+        id: toastId,
+      });
+    } else {
+      const res = await createStaffPosititon(payload);
+      if (!res.success) {
+        toast.error(res.message ?? "Gagal menambah jabatan", { id: toastId });
+        return;
+      }
+      toast.success(res.message ?? "Berhasil menambah jabatan", {
+        id: toastId,
+      });
+    }
+
+    setDialogOpen(false);
   };
 
   const onUpdate = (initData: TStaffTypeFormInput) => {
     setPositionToUpdate(initData);
-    setUpdatePositionDialog(true);
+    setDialogOpen(true);
   };
 
   return (
-    <ContentCard className="space-y-4">
+    <ContentCard className="space-y-4 h-fit">
       <div className="flex ga4 items-center justify-between">
         <h2>Daftar Jabatan Desa</h2>
         <div>
           {curentUser?.role === "ADMIN" ? (
-            <Dialog open={openDialog} onOpenChange={setOpenDialog}>
-              <DialogTrigger asChild>
-                <Button
-                  className="rounded-full"
-                  size={"icon"}
-                  variant={"outline"}
-                >
-                  <Plus />
-                </Button>
-              </DialogTrigger>
-              <DialogContent>
-                <DialogHeader>
-                  <DialogTitle>Tambah Jenis Jabatan</DialogTitle>
-                  <DialogDescription></DialogDescription>
-                </DialogHeader>
-                <Separator />
-                <StaffTypeForm getSubmit={onSubmit} />
-              </DialogContent>
-            </Dialog>
+            <Button
+              className="rounded-full"
+              size={"icon"}
+              variant={"outline"}
+              onClick={() => {
+                setPositionToUpdate(null); // mode CREATE
+                setDialogOpen(true);
+              }}
+            >
+              <Plus />
+            </Button>
           ) : null}
         </div>
       </div>
@@ -130,19 +111,22 @@ const StaffPositionList = ({ staffPositions }: Porps) => {
       )}
 
       <div>
-        <Dialog
-          open={updatePositionDialog}
-          onOpenChange={setUpdatePositionDialog}
-        >
+        <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
           <DialogContent>
             <DialogHeader>
-              <DialogTitle>Ubah data jabatan</DialogTitle>
-              <DialogDescription></DialogDescription>
+              <DialogTitle>
+                {positionToUpdate
+                  ? "Ubah Data Jabatan"
+                  : "Tambah Jenis Jabatan"}
+              </DialogTitle>
+              <DialogDescription />
             </DialogHeader>
+
             <Separator />
+
             <StaffTypeForm
               getSubmit={onSubmit}
-              initialData={positionToUpdate}
+              initialData={positionToUpdate ?? undefined}
             />
           </DialogContent>
         </Dialog>

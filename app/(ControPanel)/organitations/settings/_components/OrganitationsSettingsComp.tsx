@@ -27,7 +27,7 @@ const OrganitationsSettingsComp = ({ staffPositions }: Porps) => {
       </ContentCard>
 
       <div className="grid gap-4 md:grid-cols-3">
-        <ContentCard className="col-span-2"></ContentCard>
+        <ContentCard className="col-span-2 h-fit"></ContentCard>
         <StaffPositionList staffPositions={staffPositions} />
       </div>
     </div>
