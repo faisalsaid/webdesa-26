@@ -3,7 +3,7 @@
 import ContentCard from "@/app/(ControPanel)/_components/ContentCard";
 import { Button } from "@/components/ui/button";
 import { useUserStore } from "@/store/curentUser.store";
-import { Plus } from "lucide-react";
+import { MessageCircleWarning, Plus } from "lucide-react";
 import StaffTypeListCard from "./StaffTypeListCard";
 import {
   Dialog,
@@ -16,11 +16,19 @@ import {
 import { Separator } from "@/components/ui/separator";
 import StaffTypeForm from "./StaffTypeForm";
 import { useState, useTransition } from "react";
-import { TStaffTypeFormInput } from "../_config/dto/staffType.type";
+import {
+  TStaffPosition,
+  TStaffTypeFormInput,
+} from "../_config/dto/staffType.type";
 import { toast } from "sonner";
 import { createStaffPosititon } from "../_config/actions/createStaffPosititon.actions";
+import EmptyComp from "@/components/EmptyComp";
 
-const StaffPositionList = () => {
+interface Porps {
+  staffPositions: TStaffPosition[] | undefined;
+}
+
+const StaffPositionList = ({ staffPositions }: Porps) => {
   const curentUser = useUserStore((state) => state.user);
   const [openDialog, setOpenDialog] = useState<boolean>(false);
   const [pending, starTransition] = useTransition();
@@ -71,14 +79,34 @@ const StaffPositionList = () => {
           ) : null}
         </div>
       </div>
-      <div className="space-y-2">
-        <StaffTypeListCard />
-        <StaffTypeListCard />
-        <StaffTypeListCard />
-        <StaffTypeListCard />
-      </div>
+
+      {!staffPositions ? (
+        <UndifinedComp />
+      ) : staffPositions.length === 0 ? (
+        <EmptyComp
+          text="Silahkan menambah jenis jabatan terlebih dahulu"
+          desctiption="Jenis jabatan belum tersedia"
+        />
+      ) : (
+        <div className="space-y-2">
+          {staffPositions?.map((staffPosititon) => (
+            <StaffTypeListCard key={staffPosititon.id} />
+          ))}
+        </div>
+      )}
     </ContentCard>
   );
 };
 
 export default StaffPositionList;
+
+const UndifinedComp = () => {
+  return (
+    <div className="flex items-center justify-center border border-dashed rounded-xl min-h-64 border-rose-500/50">
+      <div className=" text-rose-500 text-center flex items-center flex-col gap-4">
+        <MessageCircleWarning size={32} />
+        <p className="">Ups!, tidak bisa mengambil list jabatan</p>
+      </div>
+    </div>
+  );
+};

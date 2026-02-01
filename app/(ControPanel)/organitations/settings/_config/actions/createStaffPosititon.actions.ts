@@ -5,6 +5,7 @@ import { TStaffTypeFormInput } from "../dto/staffType.type";
 import { authorize } from "@/lib/auth-check";
 import { StaffPositionFormInput } from "../dto/staffType.zod";
 import slugify from "slugify";
+import { revalidatePath } from "next/cache";
 
 type Result = {
   success: boolean;
@@ -29,6 +30,7 @@ export async function createStaffPosititon(
       },
     });
 
+    revalidatePath("/");
     return {
       success: true,
       message: "Berhasil membuat jabatan baru!",
