@@ -15,16 +15,32 @@ import {
 } from "@/components/ui/dialog";
 import { Separator } from "@/components/ui/separator";
 import StaffTypeForm from "./StaffTypeForm";
-import { useState } from "react";
+import { useState, useTransition } from "react";
 import { TStaffTypeFormInput } from "../_config/dto/staffType.type";
+import { toast } from "sonner";
+import { createStaffPosititon } from "../_config/actions/createStaffPosititon.actions";
 
 const StaffPositionList = () => {
   const curentUser = useUserStore((state) => state.user);
   const [openDialog, setOpenDialog] = useState<boolean>(false);
+  const [pending, starTransition] = useTransition();
 
   const onSubmit = (payload: TStaffTypeFormInput) => {
-    console.log(payload);
-    setOpenDialog(false);
+    const toastId = toast.loading("Menambah jenis jabatan");
+
+    starTransition(async () => {
+      const res = await createStaffPosititon(payload);
+      if (!res.success) {
+        toast.error(res.message ? res.message : "Gagal menambah jabatan", {
+          id: toastId,
+        });
+        return;
+      }
+      toast.success(res.message ? res.message : "Berhasil menambah jabatan", {
+        id: toastId,
+      });
+      setOpenDialog(false);
+    });
   };
 
   return (
