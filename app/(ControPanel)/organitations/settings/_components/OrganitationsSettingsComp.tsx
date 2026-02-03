@@ -61,7 +61,7 @@ const OrganitationsSettingsComp = ({
 
       <div className="grid gap-4 md:grid-cols-3">
         <ContentCard className="col-span-2 h-fit">
-          {!haveStaffPositions ? (
+          {haveStaffPositions ? (
             <StaffForm onSubmit={onSubmit} />
           ) : (
             <EmptyStaffPositionComp />

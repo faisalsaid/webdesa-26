@@ -5,9 +5,11 @@ import { TStaffDashboard } from "../_config/dto/dashboard.type";
 import { useUserStore } from "@/store/curentUser.store";
 import Link from "next/link";
 import { motion } from "motion/react";
-import { ArrowUpRight, User2 } from "lucide-react";
+import { ArrowUpRight, User, User2 } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
 import { Badge } from "@/components/ui/badge";
+import EmptyComp from "@/components/EmptyComp";
+import { Button } from "@/components/ui/button";
 
 interface Props {
   staff: TStaffDashboard[];
@@ -15,6 +17,16 @@ interface Props {
 
 const StaffDashCard = ({ staff }: Props) => {
   const currentUser = useUserStore((state) => state.user);
+
+  if (!staff) {
+    return (
+      <EmptyComp icon={User} desctiption="Tak ada info desa">
+        <Link href={"/organitations/settings"}>
+          <Button>Buat profil desa</Button>
+        </Link>
+      </EmptyComp>
+    );
+  }
 
   return (
     <motion.div
