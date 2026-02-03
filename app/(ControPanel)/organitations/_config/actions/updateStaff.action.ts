@@ -11,7 +11,6 @@ type Result = {
 };
 export async function updateStaff(data: TStaffFormInput): Promise<Result> {
   authorize(["ADMIN", "OPERATOR"]);
-  console.log(data);
   try {
     const { id, urlId, ...rest } = data;
     await prisma.staff.update({
