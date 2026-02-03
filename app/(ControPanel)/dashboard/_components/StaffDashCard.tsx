@@ -18,7 +18,7 @@ interface Props {
 const StaffDashCard = ({ staff }: Props) => {
   const currentUser = useUserStore((state) => state.user);
 
-  if (!staff) {
+  if (!staff || staff.length === 0) {
     return (
       <EmptyComp icon={User} desctiption="Tak ada info desa">
         <Link href={"/organitations/settings"}>
