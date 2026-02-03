@@ -40,18 +40,22 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { Switch } from "@/components/ui/switch";
+import { useStaffPositionOptionsStore } from "@/store/staffPostitionsOptions.store";
+import { TStaffDataTable } from "../../_config/dto/staff.type";
 
 interface Props {
-  initialData?: TStaffFormInput;
+  initialData?: TStaffDataTable;
   onSubmit: (value: TStaffFormInput) => void;
-
-  positionOptions: TStaffPositionOptions[];
 }
 
 type ResidentItem = { id: number; fullName: string; nik: string };
 
-const StaffForm = ({ initialData, onSubmit, positionOptions }: Props) => {
+const StaffForm = ({ initialData, onSubmit }: Props) => {
   //   console.log(positionOptions);
+
+  const positionOptions = useStaffPositionOptionsStore(
+    (s) => s.positionOptions,
+  );
 
   const isEdit = !!initialData;
   const availableTypes = positionOptions
@@ -76,6 +80,8 @@ const StaffForm = ({ initialData, onSubmit, positionOptions }: Props) => {
   const watchName = form.watch("name");
   const watchPositionTypeId = form.watch("positionTypeId");
 
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
   const isValid = form.formState.isValid;
   const isSubmitting = form.formState.isSubmitting;
   const isSubmitted = form.formState.isSubmitted;
@@ -84,7 +90,7 @@ const StaffForm = ({ initialData, onSubmit, positionOptions }: Props) => {
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
         <fieldset className="space-y-4">
-          {availableTypes ? (
+          {!isEdit && availableTypes ? (
             <FormField
               control={form.control}
               name="positionTypeId"
@@ -92,8 +98,8 @@ const StaffForm = ({ initialData, onSubmit, positionOptions }: Props) => {
                 <FormItem>
                   <FormLabel>Jabatan</FormLabel>
                   <Select
+                    value={field.value ? field.value.toString() : undefined}
                     onValueChange={(v) => field.onChange(Number(v))}
-                    defaultValue={field.value?.toString()}
                   >
                     <FormControl className="bg-background w-full">
                       <SelectTrigger>
@@ -115,7 +121,7 @@ const StaffForm = ({ initialData, onSubmit, positionOptions }: Props) => {
           ) : (
             <div className="p-2 border rounded-lg">
               <p className="text-muted-foreground">Jabatan </p>
-              <p className="text-lg">{initialData?.name}</p>
+              <p className="text-lg">{initialData?.positionType.name}</p>
             </div>
           )}
 
@@ -131,7 +137,7 @@ const StaffForm = ({ initialData, onSubmit, positionOptions }: Props) => {
                   <Input
                     placeholder="e.g : John Doe, S.Sos"
                     {...field}
-                    //   disabled={!watchPositionTypeId}
+                    disabled={!watchPositionTypeId}
                   />
                 </FormControl>
                 <FormMessage />
@@ -233,7 +239,7 @@ const StaffForm = ({ initialData, onSubmit, positionOptions }: Props) => {
                           mode="single"
                           selected={field.value ?? undefined}
                           onSelect={(date) => field.onChange(date)}
-                          // disabled={(date) => date > new Date()} // contoh: tidak bisa pilih tanggal di masa depan
+                          disabled={(date) => date < today}
                           captionLayout="dropdown"
                           startMonth={new Date(1950, 0)}
                           endMonth={new Date(new Date().getFullYear() + 10, 11)}
@@ -266,7 +272,6 @@ const StaffForm = ({ initialData, onSubmit, positionOptions }: Props) => {
                     checked={field.value}
                     onCheckedChange={field.onChange}
                     className="data-[state=checked]:bg-green-500"
-                    disabled={!watchResidentId}
                   />
                 </FormControl>
 

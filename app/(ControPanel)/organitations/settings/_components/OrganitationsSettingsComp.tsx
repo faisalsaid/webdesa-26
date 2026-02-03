@@ -13,6 +13,7 @@ import {
 import StaffForm from "./StaffForm";
 import { toast } from "sonner";
 import { createStaff } from "../_config/actions/createStaff.action";
+import { useStaffPositionOptionsStore } from "@/store/staffPostitionsOptions.store";
 
 interface Porps {
   staffPositions: TStaffPosition[] | undefined;
@@ -23,6 +24,9 @@ const OrganitationsSettingsComp = ({
   staffPositions,
   positionOptions,
 }: Porps) => {
+  useStaffPositionOptionsStore
+    .getState()
+    .setStaffPositionsOptions(positionOptions);
   const onSubmit = async (payload: TStaffFormInput) => {
     const toasId = toast.loading("Menambah perkangkat desa...");
 
@@ -54,7 +58,7 @@ const OrganitationsSettingsComp = ({
 
       <div className="grid gap-4 md:grid-cols-3">
         <ContentCard className="col-span-2 h-fit">
-          <StaffForm onSubmit={onSubmit} positionOptions={positionOptions} />
+          <StaffForm onSubmit={onSubmit} />
         </ContentCard>
         <StaffPositionList staffPositions={staffPositions} />
       </div>

@@ -6,13 +6,23 @@ import Link from "next/link";
 import EmptyComp from "@/components/EmptyComp";
 import { TStaffDataTableResult } from "../_config/dto/staff.type";
 import AllStaffComp from "./AllStaffComp";
+import { useStaffPositionOptionsStore } from "@/store/staffPostitionsOptions.store";
+import { TStaffPositionOptions } from "../settings/_config/dto/staffType.type";
 
 interface Props {
   haveStaff: boolean;
   staffDataTable: TStaffDataTableResult | undefined;
+  positionOptions: TStaffPositionOptions[];
 }
 
-const OrganitationsComp = ({ haveStaff, staffDataTable }: Props) => {
+const OrganitationsComp = ({
+  haveStaff,
+  staffDataTable,
+  positionOptions,
+}: Props) => {
+  useStaffPositionOptionsStore
+    .getState()
+    .setStaffPositionsOptions(positionOptions);
   return (
     <div className="space-y-4">
       <ContentCard className="flex items-center justify-between">
