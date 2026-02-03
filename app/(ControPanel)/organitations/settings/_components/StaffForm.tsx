@@ -299,10 +299,10 @@ const StaffForm = ({ initialData, onSubmit }: Props) => {
               {isSubmitting ? <Spinner /> : <Send />}
               <span>
                 {isSubmitting
-                  ? "Proccessing..."
+                  ? "Memprosess..."
                   : isEdit
-                    ? "Update Room Type"
-                    : "Save Room Type"}
+                    ? "Perbarui perangkat"
+                    : "Buat perangkat"}
               </span>
             </Button>
           </div>
