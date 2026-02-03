@@ -18,6 +18,9 @@ import ConfirmDialog from "@/components/ConfirmDialog";
 import { Separator } from "@/components/ui/separator";
 import StaffForm from "../../settings/_components/StaffForm";
 import { TStaffFormInput } from "../../settings/_config/dto/staffType.type";
+import { updateStaff } from "../../_config/actions/updateStaff.action";
+import { toast } from "sonner";
+import { deleteStaff } from "../../_config/actions/deleteStaff.action";
 
 interface Props {
   dataTable: TStaffDataTable[];
@@ -34,7 +37,22 @@ const StaffTableComp = ({ dataTable }: Props) => {
   };
 
   const handleUpdate = async (staff: TStaffFormInput) => {
-    console.log(staff);
+    const taosId = toast.loading("Perbarui data perangkat...");
+
+    const res = await updateStaff(staff);
+
+    if (!res.success) {
+      toast.error(res.message ? res.message : "Gagal perbarui data perangkat", {
+        id: taosId,
+      });
+      return;
+    }
+
+    toast.success(
+      res.message ? res.message : "berhasil perbarui data perangkat",
+      { id: taosId },
+    );
+    setUpdateDialog(false);
   };
 
   const trigerDelete = (id: number) => {
@@ -42,8 +60,25 @@ const StaffTableComp = ({ dataTable }: Props) => {
     setDeleteDialog(true);
   };
 
-  const handleDelete = () => {
-    console.log(staffIdToDelete);
+  const handleDelete = async () => {
+    if (!staffIdToDelete) {
+      toast.error("Silahkan pilih perangkat yang ingin dihapus");
+      return;
+    }
+    const taosId = toast.loading("Hapus perangkat...");
+
+    const res = await deleteStaff(staffIdToDelete);
+
+    if (!res.success) {
+      toast.error(res.message ? res.message : "Gagal hapus perangkat", {
+        id: taosId,
+      });
+      return;
+    }
+
+    toast.success(res.message ? res.message : "Berhasil hapus perangkat", {
+      id: taosId,
+    });
   };
 
   if (dataTable.length === 0) {

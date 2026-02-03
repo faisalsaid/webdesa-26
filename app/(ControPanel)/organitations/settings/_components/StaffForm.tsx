@@ -76,7 +76,7 @@ const StaffForm = ({ initialData, onSubmit }: Props) => {
     },
   });
 
-  const watchResidentId = form.watch("residentId");
+  // const watchResidentId = form.watch("residentId");
   const watchName = form.watch("name");
   const watchPositionTypeId = form.watch("positionTypeId");
 
