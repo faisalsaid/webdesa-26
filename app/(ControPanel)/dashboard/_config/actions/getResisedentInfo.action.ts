@@ -1,7 +1,7 @@
 "use server";
 
 import prisma from "@/lib/prisma";
-import { QGetResidentsDashboardQuery } from "../dto/dashboard.type";
+import { QGetResidentsDashboardQuery } from "../dto/dashboard.query";
 
 interface GenderGroupResult {
   gender: "MALE" | "FEMALE";

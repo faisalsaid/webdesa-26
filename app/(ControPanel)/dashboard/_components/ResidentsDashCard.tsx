@@ -42,7 +42,7 @@ const ResidentsDashCard = ({ residents, totalCount, stas }: Props) => {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
     >
-      <Card className="overflow-hidden border-zinc-200 dark:border-zinc-800 bg-white/50 dark:bg-zinc-950/50 backdrop-blur-sm hover:shadow-xl transition-shadow duration-300">
+      <Card className="overflow-hidden border-zinc-200 dark:border-zinc-800 bg-background backdrop-blur-sm hover:shadow-xl transition-shadow duration-300">
         <CardHeader className="flex flex-row items-center justify-between space-y-0 ">
           <CardTitle className="text-xl font-bold tracking-tight">
             Penduduk

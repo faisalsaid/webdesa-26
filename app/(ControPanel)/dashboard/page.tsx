@@ -3,11 +3,14 @@ import { getVillageInfo } from "./_config/actions/getVillageInfo.actions";
 import VillageProfileCard from "./_components/VillageProfileCard";
 import { getDashboardResident } from "./_config/actions/getResisedentInfo.action";
 import ResidentsDashCard from "./_components/ResidentsDashCard";
+import { getStaffDashInfo } from "./_config/actions/getStaffDashInfo.action";
+import StaffDashCard from "./_components/StaffDashCard";
 
 const DashboardPage = async () => {
   const currentUser = await getCurrentUser();
   const villageInfo = await getVillageInfo();
   const residentInfo = await getDashboardResident();
+  const staffInfo = await getStaffDashInfo();
 
   if (!currentUser) {
     return <div>Guest</div>;
@@ -25,6 +28,8 @@ const DashboardPage = async () => {
           totalCount={residentInfo?.totalCount}
           stas={residentInfo?.genderStats}
         />
+
+        <StaffDashCard staff={staffInfo} />
       </div>
     </div>
   );
