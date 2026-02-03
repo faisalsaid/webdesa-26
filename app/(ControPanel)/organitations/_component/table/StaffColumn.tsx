@@ -9,7 +9,7 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { GripVertical } from "lucide-react";
+import { Edit2, GripVertical, Trash2 } from "lucide-react";
 
 export type Staff = {
   id: string;
@@ -67,16 +67,37 @@ export const staffColumns = ({
 
       return (
         <div className="flex gap-2">
-          <Button size="sm" variant="ghost" onClick={() => onEdit(staff)}>
-            Edit
-          </Button>
-          <Button
-            size="sm"
-            variant="destructive"
-            onClick={() => onDelete(staff.id)}
-          >
-            Delete
-          </Button>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Button
+                size="icon"
+                variant="outline"
+                className="rounded-full"
+                onClick={() => onEdit(staff)}
+              >
+                <Edit2 />
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent>
+              <p>Perbarui</p>
+            </TooltipContent>
+          </Tooltip>
+
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Button
+                size="icon"
+                variant="destructive"
+                className="rounded-full"
+                onClick={() => onDelete(staff.id)}
+              >
+                <Trash2 />
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent>
+              <p>Hapus</p>
+            </TooltipContent>
+          </Tooltip>
         </div>
       );
     },
