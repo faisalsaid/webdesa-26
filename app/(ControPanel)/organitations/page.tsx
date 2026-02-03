@@ -1,6 +1,6 @@
 import OrganitationsComp from "./_component/OrganitationsComp";
 import { checkStaffDB } from "./_config/dto/checkStaffDB.actions";
-import { getStaffDataTable } from "./_config/dto/staff.action";
+import { getStaffDataTable } from "./_config/actions/getStaffDataTable.action";
 
 const OrganitationsPage = async ({
   searchParams,

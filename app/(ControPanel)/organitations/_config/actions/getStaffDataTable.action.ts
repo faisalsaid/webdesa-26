@@ -1,10 +1,10 @@
 "use server";
 
 import { authorize } from "@/lib/auth-check";
-import { TStaffDataTableResult } from "./staff.type";
+import { TStaffDataTableResult } from "../dto/staff.type";
 import { Prisma } from "@/app/generated/prisma/client";
 import prisma from "@/lib/prisma";
-import { QGetStaffDataTable } from "./staff.query";
+import { QGetStaffDataTable } from "../dto/staff.query";
 
 type Result = {
   success: boolean;
@@ -28,7 +28,14 @@ export async function getStaffDataTable({
 
   const where: Prisma.StaffWhereInput = search
     ? {
-        OR: [{ name: { contains: search, mode: "insensitive" } }],
+        OR: [
+          { name: { contains: search, mode: "insensitive" } },
+          {
+            positionType: {
+              name: { contains: search, mode: "insensitive" },
+            },
+          },
+        ],
       }
     : {};
 
