@@ -22,7 +22,7 @@ const StaffDashCard = ({ staff }: Props) => {
     return (
       <EmptyComp icon={User} desctiption="Tak ada info desa">
         <Link href={"/organitations/settings"}>
-          <Button>Buat profil desa</Button>
+          <Button>Buat perangkat desa</Button>
         </Link>
       </EmptyComp>
     );
