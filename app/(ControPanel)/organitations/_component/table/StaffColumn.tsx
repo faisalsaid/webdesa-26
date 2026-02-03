@@ -10,6 +10,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { Edit2, GripVertical, Trash2 } from "lucide-react";
+import { Span } from "next/dist/trace";
 
 export type Staff = {
   id: string;
@@ -57,6 +58,26 @@ export const staffColumns = ({
           </Tooltip>
         )}
       </div>
+    ),
+  },
+  {
+    accessorKey: "startDate",
+    header: "Mulai",
+    cell: ({ row }) => (
+      <p>{row.original.startDate.toLocaleDateString("en-ID")}</p>
+    ),
+  },
+  {
+    accessorKey: "endDate",
+    header: "Berkhir",
+    cell: ({ row }) => (
+      <p>
+        {row.original.endDate ? (
+          row.original.endDate.toLocaleDateString("en-ID")
+        ) : (
+          <span className="italic text-muted-foreground">-</span>
+        )}
+      </p>
     ),
   },
 
