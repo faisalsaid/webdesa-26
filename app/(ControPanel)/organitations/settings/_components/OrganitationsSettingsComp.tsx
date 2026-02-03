@@ -14,15 +14,18 @@ import StaffForm from "./StaffForm";
 import { toast } from "sonner";
 import { createStaff } from "../_config/actions/createStaff.action";
 import { useStaffPositionOptionsStore } from "@/store/staffPostitionsOptions.store";
+import EmptyComp from "@/components/EmptyComp";
 
 interface Porps {
   staffPositions: TStaffPosition[] | undefined;
   positionOptions: TStaffPositionOptions[];
+  haveStaffPositions?: boolean;
 }
 
 const OrganitationsSettingsComp = ({
   staffPositions,
   positionOptions,
+  haveStaffPositions,
 }: Porps) => {
   useStaffPositionOptionsStore
     .getState()
@@ -58,7 +61,11 @@ const OrganitationsSettingsComp = ({
 
       <div className="grid gap-4 md:grid-cols-3">
         <ContentCard className="col-span-2 h-fit">
-          <StaffForm onSubmit={onSubmit} />
+          {!haveStaffPositions ? (
+            <StaffForm onSubmit={onSubmit} />
+          ) : (
+            <EmptyStaffPositionComp />
+          )}
         </ContentCard>
         <StaffPositionList staffPositions={staffPositions} />
       </div>
@@ -67,3 +74,9 @@ const OrganitationsSettingsComp = ({
 };
 
 export default OrganitationsSettingsComp;
+
+const EmptyStaffPositionComp = () => {
+  return (
+    <EmptyComp text="Silahkan menambah jenis jabatan perangkat terlebih dahulu" />
+  );
+};

@@ -2,8 +2,10 @@ import { MessageCircleWarning } from "lucide-react";
 import OrganitationsSettingsComp from "./_components/OrganitationsSettingsComp";
 import { getAllStaffPosition } from "./_config/actions/getAllStaffPosition.action";
 import { getStaffPositionToStaffFormOptions } from "./_config/actions/getStaffPositionToStaffFormOptions.actions";
+import { checkStaffPositionDB } from "./_config/actions/checkStaffPositionDB.action";
 
 const OrganitationsSettings = async () => {
+  const haveStaffPosition = await checkStaffPositionDB();
   const staffPositionRes = await getAllStaffPosition();
   const positionOptions = await getStaffPositionToStaffFormOptions();
 
@@ -22,6 +24,7 @@ const OrganitationsSettings = async () => {
     <OrganitationsSettingsComp
       staffPositions={staffPositionRes.staffPositions}
       positionOptions={positionOptions}
+      haveStaffPositions={!!haveStaffPosition}
     />
   );
 };
